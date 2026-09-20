@@ -1,6 +1,6 @@
 # LLD Primer — Reading order and study contract
 
-A 20-chapter primer on Low-Level Design, written in the conversational style of Aditya Bhargava's *Grokking Algorithms* and Alex Xu's *System Design Interview*. Built around a single principle: *feel the pain before naming the pattern.*
+A 20-chapter primer on Low-Level Design, built around a single principle: *feel the pain before naming the pattern.*
 
 ## Reading order
 

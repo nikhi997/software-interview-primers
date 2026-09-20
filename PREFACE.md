@@ -42,7 +42,7 @@ This is the part most readers skip, and it's the part that decides whether any o
 - **Sit in the brute force.** Resist the urge to jump to the clever answer. The discomfort of the obvious-but-bad solution is what makes the fix meaningful. Skip the pain and the pattern is just trivia again.
 - **Be honest about what you don't know.** These books are useless if you nod along. They're powerful if you keep noticing, precisely, the thing that just slipped.
 
-The [README](README.md) has the concrete study contract — the session structure, the schedule, the checkpoints. Follow it. The spacing isn't a suggestion; it's the reason the knowledge stays.
+The [README](README.md) has the concrete study method. Follow it. The spacing isn't a suggestion; it's the reason the knowledge stays.
 
 ## What kind of engineer this builds
 
@@ -56,7 +56,7 @@ That includes the newest layer. AI is becoming an ordinary part of the loop, and
 
 Seven tracks, months not days. Real spacing, real reps, real rest — because that's what retention costs, and there's no version of this that's fast *and* sticks. You won't finish these in a weekend, and that's the point.
 
-Start with the [README](README.md): it maps the seven tracks to the rounds you'll face, tells you which one to read first for your situation, and lays out a study schedule that weaves them together. Then pick your first track and read the way this preface describes — slowly, from memory, feeling the pain before you reach for the answer.
+Start with the [README](README.md): it maps the seven tracks to the rounds you'll face and tells you which one to read first for your situation. Then pick your first track and read the way this preface describes — slowly, from memory, feeling the pain before you reach for the answer.
 
 That last phrase is the entire method, and it's worth carrying into every chapter:
 

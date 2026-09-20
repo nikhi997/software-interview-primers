@@ -1,6 +1,6 @@
 # DSA Primer — Reading order and study contract
 
-A 15-chapter primer on Data Structures & Algorithms for coding interviews, written in the conversational style of Aditya Bhargava's *Grokking Algorithms* and Alex Xu's *System Design Interview*. Built around a single principle: *feel the brute force before reaching for the pattern.*
+A 15-chapter primer on Data Structures & Algorithms for coding interviews, built around a single principle: *feel the brute force before reaching for the pattern.*
 
 This is the companion to the LLD and HLD primers. LLD asks "does your code bend when requirements change?" HLD asks "does your system bend when traffic lands?" DSA asks a sharper, smaller question: *given a problem, can you find the trick that turns the slow obvious solution into a fast one?*
 

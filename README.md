@@ -1,6 +1,6 @@
 # Software Interview Primers — LLD · HLD · DSA · Behavioural · AI/ML · Foundations · Interview-Topics
 
-Seven companion primers that prepare you for the full software engineering interview loop — *and* for where the loop is going — all written in the same conversational style as Aditya Bhargava's *Grokking Algorithms* and Alex Xu's *System Design Interview*.
+Seven companion primers that prepare you for the full software engineering interview loop — *and* for where the loop is going — all written in the same conversational style.
 
 They share one teaching philosophy: **start with the simple, obvious thing, feel exactly where it hurts, then add the one move that fixes the pain.** No memorized templates, no patterns for their own sake — you *derive* each technique from the problem it solves, which is what lets you recognize it on something unfamiliar.
 
@@ -105,79 +105,22 @@ Read the six core principles in the table again — they're the same sentence si
 - **Behavioural** can run *in parallel* with any of the above from day one — building your story bank is slow-burn work that benefits from being started early and revisited.
 - **Targeting an AI Engineer / ML role, or expecting AI questions in your loop?** Add **AI/ML**. It's largely independent of the other four (it only assumes the DSA primer's level of Python), so it can run alongside them — but if AI is central to your target role, give it primary focus rather than treating it as a side track.
 - **Expecting a fundamentals screen, or a backend/infra/data role?** Skim **Foundations**. It's a reference, not a sequence — drill SQL (Ch 1–4) for almost any role, add OS (Ch 5–6) for systems/infra/FAANG, and networking (Ch 7–8) for infra/platform work. Each chapter is recall-focused and shorter (~1.5–2 hrs) than the other tracks.
-- **Best results:** DSA reps continuously in the background, LLD → HLD in sequence for design, Behavioural built up alongside, AI/ML layered in when the role calls for it, and Foundations skimmed for the fundamentals screen. The schedule below weaves them together.
+- **Best results:** DSA reps continuously in the background, LLD → HLD in sequence for design, Behavioural built up alongside, AI/ML layered in when the role calls for it, and Foundations skimmed for the fundamentals screen.
 
 ## How to study (read this before starting)
 
-All four primers share one non-negotiable rule: **each chapter is a few short sessions over a few days, not one sitting.** The spacing *is* the method — it's what moves things into long-term memory.
+All seven tracks share one non-negotiable rule: **each chapter is a few short sessions over a few days, not one sitting.** The spacing *is* the method — it's what moves things into long-term memory.
 
 - **Session 1 (45–60 min):** read once, do the inline "try it" prompts. Don't take notes. Stop for the day.
 - **Session 2 (45–60 min, next day):** rebuild from memory — and what "rebuild" means is track-specific:
   - **LLD:** re-type the code; **HLD:** redraw the architecture and say *why each box exists*.
   - **DSA:** *solve* 2–3 listed problems for the pattern from scratch (DSA is the one track where solving beats reading).
   - **Behavioural:** *write out* 2–3 of your own stories in the template, then say them aloud.
-  - **AI/ML:** run/modify the chapter's code for the fundamentals, and for the GenAI chapters *actually call a real model API* — reading about hallucination teaches nothing; causing one teaches everything.
+  - **AI/ML:** run and modify the fixture-based examples; deliberately cause the failure the chapter describes, then repair it.
   - **Foundations:** close the file and *write each concept's answer from memory*, then *say it aloud* in four beats — this track is tested by speaking, so rehearse by speaking.
 - **Session 3 (30 min, day after):** do the exercises, then explain the chapter to yourself in 4–5 sentences (the problem, the pain, the move, the next pain).
 
 ≈2.5 hours per chapter. Don't compress.
-
----
-
-## The full study schedule
-
-A realistic plan that weaves the tracks. DSA is 15 chapters, AI/ML is 18, HLD is 16, LLD is 20, Behavioural is 10, and Foundations is 14. Done sensibly with rest days, the classic four-track loop is about **3–4 months** — but you rarely need *all* tracks at full depth at once, so pick the option matching your situation. The AI/ML track is layered in via Option D (or run standalone) when the role calls for it; Foundations is skimmed as a reference whenever a fundamentals screen looms.
-
-### Option A — Full loop, sequential (recommended; ~14–16 weeks)
-DSA reps run *continuously in the background* the whole time. The weekly focus moves through the design and behavioural tracks.
-
-| Weeks | Primary focus | DSA (ongoing) | Behavioural (slow burn) |
-|---|---|---|---|
-| **1–2** | DSA Ch 1–5 (array/string patterns) | — (this *is* the focus) | Read Behavioural Ch 1–3, start the story bank |
-| **3–4** | DSA Ch 6–10 (structures) | grind listed problems | Write 4–6 stories |
-| **5–6** | DSA Ch 11–15 (graphs, DP, ritual) | grind listed problems | Behavioural Ch 4–7, tag stories by signal |
-| **7–8** | LLD Ch 1–8 | 3–5 problems/week to retain | Behavioural Ch 8–10, first mock |
-| **9** | LLD Ch 9–20 | maintenance reps | Coverage-matrix check |
-| **10–11** | HLD Ch 1–9 | maintenance reps | Refine bank, run mocks |
-| **12** | HLD Ch 10–16 | maintenance reps | Final mock with follow-ups |
-| **13+** | Mixed drills: one DSA problem + one design ritual + one behavioural question, daily | — | — |
-
-### Option B — Design-focused (already strong at DSA; ~8 weeks)
-Skip the DSA deep-dive (keep light maintenance reps), focus on the design and behavioural rounds.
-
-| Weeks | Focus | Milestone |
-|---|---|---|
-| **1–2** | LLD Ch 1–8 | Predict which 2–3 patterns a new problem needs |
-| **3** | LLD Ch 9–20 | Full LLD ritual on an unseen problem in 30 min |
-| **4–5** | HLD Ch 1–9 | Justify each component from a *number*, not habit |
-| **6** | HLD Ch 10–16 | Full HLD 6-step ritual on an unseen problem in 35 min |
-| **7** | Behavioural Ch 1–7 + build the story bank | 6+ written stories, every signal covered twice |
-| **8** | Behavioural Ch 8–10 + mocks | Cold question → story → STAR in under 3 min |
-
-### Option C — Crunch (interview in 2–3 weeks)
-Only if you've seen this material before and need a fast refresh. You lose the spacing benefit — expect shallower retention. Triage to the rounds you'll actually face.
-
-- **Days 1–6:** DSA — read Ch 1–15 once, and *solve* the appendix's top 2–3 problems per pattern (the solving is non-negotiable even in crunch).
-- **Days 7–9:** LLD Ch 1–20 (read once, attempt the worked problems cold).
-- **Days 10–12:** HLD Ch 1–16 (read once, run the 6-step ritual out loud, timed).
-- **Days 13–14:** Behavioural — read all chapters, write your bank (8–12 stories), rehearse out loud with follow-ups.
-- **Days 15+:** daily mixed drill — one DSA problem, one design ritual, three behavioural questions — until the interview.
-
-### Option D — AI/ML focus (targeting an AI Engineer / ML role; ~6–8 weeks)
-For when AI is central to the role. Runs largely independently; keep light DSA reps in the background since AI roles still include a coding round.
-
-| Weeks | Focus | Milestone |
-|---|---|---|
-| **1–2** | AI/ML Ch 1–5 (ML fundamentals) | Decide if a problem is ML, name the data + model class + metric — *and* when ML is the wrong tool |
-| **3** | AI/ML Ch 6–8 (deep learning, embeddings, Transformers) | Explain an embedding and why Transformers made LLMs possible, no hand-waving |
-| **4–5** | AI/ML Ch 9–16 (the GenAI applied layer) | Build a small RAG app + an eval set; *call a real model API* each chapter |
-| **6** | AI/ML Ch 17–18 + appendix projects | Run the DRESS ritual on "design an AI feature" cold; aim at a role archetype |
-| **alongside** | Light DSA maintenance reps + Behavioural story bank | Ready for the coding + behavioural rounds AI loops still include |
-
-### Weekly rhythm (any option)
-- **5 study days** + **1 review day** (redo a past chapter's exercises / re-solve a hard problem cold) + **1 rest day.** Rest is part of the method.
-- At every **checkpoint**, if you can't do the milestone, *stop and redo* the prior chapters. Don't proceed on a shaky foundation.
-- **DSA is volume-driven:** the 15 chapters teach the patterns, but fluency comes from the appendix's problem list. Budget steady reps over 2–3 months alongside everything else.
 
 ---
 

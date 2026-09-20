@@ -1,6 +1,6 @@
 # HLD Primer — Reading order and study contract
 
-A 16-chapter primer on High-Level (System) Design, written in the conversational style of Aditya Bhargava's *Grokking Algorithms* and Alex Xu's *System Design Interview*. Built around a single principle: *feel the bottleneck before reaching for the component.*
+A 16-chapter primer on High-Level (System) Design, built around a single principle: *feel the bottleneck before reaching for the component.*
 
 This is the companion to the LLD primer. LLD asks "does your code bend or break when a requirement lands?" HLD asks a different question: *"does your system bend or break when the traffic lands?"*
 
