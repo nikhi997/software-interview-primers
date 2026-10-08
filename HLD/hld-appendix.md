@@ -4,7 +4,7 @@
 
 Five short references for after you've finished the book. Not study material — lookup material.
 
-Looking to *re-read* rather than look something up? See the [visual deepdive](hld-visual-deepdive.md) — all sixteen chapters retold as one continuous diagram-led story.
+Looking to *re-read* rather than look something up? See the [visual deepdive](hld-visual-deepdive.md) — all sixteen chapters retold as one continuous diagram-led story. Ready to make and defend production choices? Use the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md); they are a companion, not Chapter 17.
 
 ## A. Component catalog
 

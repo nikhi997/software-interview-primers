@@ -1,6 +1,6 @@
-# Foundations & CS Fundamentals — SQL · Databases · OS · Networking · Python · Concurrency · Git
+# Foundations & CS Fundamentals — SQL · Databases · OS · Networking · Python · Concurrency · Git · Distributed Systems
 
-A 14-chapter primer on the pop-quiz layer of software engineering interviews: the questions that test whether you understand what's happening *one level below* the API, the query, or the framework. Written in the same conversational style as the LLD, HLD, DSA, Behavioural, and AI/ML primers in this collection.
+A 15-chapter primer on the pop-quiz layer of software engineering interviews: the questions that test whether you understand what's happening *one level below* the API, the query, or the framework. Written in the same conversational style as the LLD, HLD, DSA, Behavioural, and AI/ML primers in this collection.
 
 Core principle: **feel the mechanism before trusting the abstraction.**
 
@@ -19,12 +19,13 @@ This track plugs those gaps. It is not a deep dive into any single subject — i
 - **Concurrency** — because the right tool depends on whether your code is waiting or computing.
 - **Python idioms** — because interviews assume you can explain the language mechanisms you reach for.
 - **Git** — because every engineer uses the graph, especially when history needs to be combined or undone.
+- **Distributed systems** — because the moment work crosses a network, silence becomes ambiguous and retries, copies, ordering, and recovery become correctness concerns.
 
 ## The one idea
 
 Every pop-quiz question has the same shape underneath: *"do you understand the mechanism, or are you just pattern-matching the syntax?"*
 
-You can write `SELECT * FROM orders JOIN customers ON ...` without understanding *why* the clauses run in a non-obvious order or what the query planner actually does. You can use `async/await` without understanding what the event loop is doing. You can call a REST API without understanding what TCP is doing underneath. The interview question always finds the edge of your understanding and asks you to go one level deeper. This track puts you one level deeper in each of the four areas, so you're never caught at the edge.
+You can write `SELECT * FROM orders JOIN customers ON ...` without understanding *why* the clauses run in a non-obvious order or what the query planner actually does. You can use `async/await` without understanding what the event loop is doing. You can call a REST API without understanding what TCP is doing underneath. The interview question always finds the edge of your understanding and asks you to go one level deeper. This track puts you one level deeper in each area, so you're never caught at the edge.
 
 ## How this track is different from the others
 
@@ -57,6 +58,7 @@ Read them all if you have time. If you're triaging:
 - **Chapter 12 (ritual)** — read before any interview, regardless of which other chapters you covered.
 - **Chapter 13 (data teams)** — a bonus, not a pop-quiz chapter; skim it to learn who the data engineers, analysts, and scientists around you are and when to pull them in. Useful for new grads and anyone joining a team with a data org.
 - **Chapter 14 (Git)** — a bonus tooling chapter; the version-control model every engineer is assumed to know but few can explain. Read it if merge-vs-rebase or "undo a pushed commit" would catch you out.
+- **Chapter 15 (distributed systems)** — essential for backend, platform, and senior roles; it derives partial failure, retry safety, replication, coordination, delivery, and disaster recovery from the first ambiguous timeout.
 
 ## Reading order
 
@@ -84,7 +86,10 @@ Read them all if you have time. If you're triaging:
 - Chapter 13: Working with the data teams *(what data engineers, analysts, scientists, and ML engineers do — and when to pull them in)*
 - Chapter 14: Git — the graph beneath the commands *(commits as snapshots, branches as pointers, merge vs rebase, and the safe way to undo)*
 
-**Companions:** [Mechanism maps](foundations-mechanism-maps.md), [60-second recall](foundations-60-second-recall.md), and the [Appendix](foundations-appendix.md): SQL cheat sheet, OS vocabulary, networking vocabulary, Git vocabulary, and a full interview question bank by chapter.
+**Part 6 — Distributed systems**
+- Chapter 15: When one machine becomes many *(partial failure, timeouts, safe retries, replication, consistency, coordination, delivery, degradation, and recovery)*
+
+**Companions:** [Mechanism maps](foundations-mechanism-maps.md), [60-second recall](foundations-60-second-recall.md), and the [Appendix](foundations-appendix.md): SQL cheat sheet, OS vocabulary, networking vocabulary, distributed-systems vocabulary, Git vocabulary, and a full interview question bank by chapter.
 
 ## Runnable code
 
@@ -103,6 +108,7 @@ Read them all if you have time. If you're triaging:
 - **After Ch 6:** Can you explain, without notes, what happens in memory when one function calls another?
 - **After Ch 8:** Can you walk end-to-end through a browser request — every hop — without pausing?
 - **After Ch 12:** Can you answer "what's the difference between a process and a thread?" in 60 seconds, clearly, with no filler?
+- **After Ch 15:** Given a timed-out side effect, can you explain the ambiguity, design a bounded idempotent retry, name the ordering/coordination boundary, and state RPO/RTO?
 
 If a checkpoint fails, reread the relevant chapter and *say the answer out loud* until it's fluent.
 

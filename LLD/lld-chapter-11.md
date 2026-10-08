@@ -108,6 +108,8 @@ When you can articulate the pain in SOLID terms, you can fix it. The names give 
 
 Don't fix anything. Just diagnose. Diagnosing is the skill.
 
+Then make the dependency rule concrete in the [boundaries and testing companion](lld-boundaries-and-testing.md), which carries constructor injection through ports/adapters, repositories, error contracts, and tests at each seam.
+
 ---
 
 <div align="right">

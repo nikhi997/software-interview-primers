@@ -440,6 +440,117 @@ The failure this explains: cleanup at the end of a block is not enough; cleanup 
 
 ---
 
+## Distributed systems: silence, repetition, and agreement
+
+Read with [Chapter 15](6-distributed-systems/ch15-when-one-machine-becomes-many.md).
+
+```text
+caller sends request
+  |
+  v
+deadline expires with no response
+  |
+  +--> request never arrived
+  +--> remote crashed before the effect
+  +--> effect committed; response was lost
+  +--> remote is merely slow
+  |
+  v
+outcome is UNKNOWN, not automatically failed
+  |
+  v
+retry only if transient
+  -> exponential backoff + jitter
+  -> bounded attempts / total deadline
+  -> same idempotency key for the same logical operation
+  |
+  v
+duplicate attempt returns the stored result
+  -> business effect happens once
+```
+
+The failure this explains: a timeout only bounds waiting. It cannot tell whether a remote side effect occurred, so retry safety must be designed before retry is enabled.
+
+```text
+one data copy
+  -> copy dies
+  -> data or service is lost
+  |
+  v
+replicate to N copies
+  |
+  +--> acknowledge primary only
+  |      -> lower write latency
+  |      -> latest acknowledged write can be lost
+  |
+  +--> wait for W copies
+         -> higher latency / lower write availability
+         -> stronger durability
+  |
+  v
+read R copies
+  -> W + R > N gives overlap
+  -> versions choose the newest overlapping value
+```
+
+The tradeoff this explains: replication creates copies; the acknowledgement/read policy creates the actual durability and consistency promise.
+
+```text
+threads in one process
+  -> one mutex can guard their shared memory
+
+two processes / servers
+  -> each has different memory and a different mutex
+  -> local locks do not coordinate
+  |
+  v
+put invariant where every writer meets
+  -> conditional database update / compare-and-set
+  -> row lock or unique constraint
+  -> distributed lease only when the store cannot enforce it
+```
+
+The boundary this explains: `threading.Lock()` is an in-process concurrency primitive, not distributed coordination. Cross-server correctness belongs at the shared store or a proven coordinator.
+
+```text
+consume message
+  -> apply state change
+  -> acknowledge
+  |
+  +--> crash before state change
+  |      -> redelivery is necessary
+  |
+  +--> crash after state change, before acknowledgement
+         -> redelivery duplicates the attempt
+         -> inbox dedupe / idempotent effect makes replay safe
+
+state change + event publish
+  -> two independent writes can disagree
+  -> write state + outbox row in one transaction
+  -> relay publishes later
+  -> relay may duplicate, consumer still dedupes
+```
+
+The failure this explains: "exactly once" is not a magic broker setting across arbitrary side effects. At-least-once transport plus atomic deduplication creates an effectively-once business result.
+
+```text
+regional disaster
+  |
+  +--> RPO: how much recent data may be lost?
+  |      -> backup / replication frequency and acknowledgement policy
+  |
+  +--> RTO: how long may recovery take?
+         -> standby readiness, automation, capacity, routing
+  |
+  v
+restore + failover drill
+  -> measured evidence that objectives are achievable
+```
+
+The recovery lesson: replication is not a backup, and an untested failover plan is not an achieved RTO.
+
+---
+
 ## Git: commands move pointers or add graph nodes
 
 Read with [Chapter 14](5-bonus/ch14-git.md).

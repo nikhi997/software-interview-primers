@@ -150,6 +150,8 @@ A group message to 50 people? **Fanout** (Ch 14 returns): persist once, then loo
 ## Step 6: Bottlenecks & tradeoffs
 
 - **Next bottleneck:** the session registry (every message does a lookup) → it must be fast and sharded; or co-locate routing logic. Huge groups stress fanout → workers + queues.
+
+To extend this design across regions, including home-region routing, ordering, replay, and duplicate effects, use the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md).
 - **Tradeoffs made:** we **persist every message before delivering** (durability over raw latency — a few extra ms to never lose a message; correct call for chat). We accept **at-least-once + idempotency** rather than chasing impossible exactly-once. We carve out **stateful gateway servers** as a deliberate exception to statelessness, isolating the connection state so the rest stays stateless and scalable.
 
 ---

@@ -225,6 +225,60 @@ Do not memorize these word-for-word. Rehearse the beats until your own version l
 
 ---
 
+## Distributed systems
+
+### Prompt: "What does a timeout mean in a distributed system?"
+
+**0–10s — Definition:** A timeout means the caller stopped waiting; it does not prove the remote operation failed.
+
+**10–30s — Mechanism:** The request may not have arrived, the remote may be slow or dead, or the effect may have committed while the response was lost. Those timelines look identical to the caller.
+
+**30–45s — Failure mode:** Blindly treating timeout as failure and retrying can duplicate a payment or order; waiting forever can exhaust every caller resource.
+
+**45–60s — Concrete choice:** I set an end-to-end deadline, retry only transient failures with backoff and jitter, and reuse one idempotency key for the same logical operation.
+
+### Prompt: "Replication, quorum, and consensus?"
+
+**0–10s — Definition:** Replication makes copies; quorum chooses overlapping read/write sets; consensus chooses one authority or ordered history.
+
+**10–30s — Mechanism:** With `N` copies, waiting for `W` writes and consulting `R` reads gives overlap when `W + R > N`. Consensus protocols use a majority so isolated minorities cannot both commit conflicting authority.
+
+**30–45s — Tradeoff:** More coordination improves consistency or durability but adds latency and can reject work during failures. Quorum overlap alone does not elect a leader or totally order events.
+
+**45–60s — Concrete choice:** I might use quorum reads for replicated profile data but delegate database leader election to Raft inside the database, not implement it in application code.
+
+### Prompt: "Why isn't a mutex a distributed lock?"
+
+**0–10s — Definition:** A mutex coordinates threads sharing one process's memory; another process or server has a different lock.
+
+**10–30s — Mechanism:** Two servers can each acquire their local lock and both update the same database row. The invariant must be enforced where all writers meet, using a conditional update, row lock, unique constraint, or coordinator.
+
+**30–45s — Failure mode:** A distributed lease also has hazards: an old holder can pause, lose the lease, resume, and act stale unless the resource checks fencing tokens.
+
+**45–60s — Concrete choice:** For one remaining seat, I prefer `UPDATE ... WHERE available = true` and check one row changed over a separate distributed mutex.
+
+### Prompt: "At-least-once vs exactly-once delivery?"
+
+**0–10s — Definition:** At-least-once retries until acknowledgement, so attempts may duplicate; "exactly once" is meaningful only within a named boundary.
+
+**10–30s — Mechanism:** A consumer can commit its database change then crash before acknowledging, causing redelivery. Recording the event ID and the business change in one transaction makes the repeat a no-op.
+
+**30–45s — Tradeoff:** Broker transactions cannot automatically make an external email or payment happen once; that boundary needs provider idempotency or reconciliation.
+
+**45–60s — Concrete choice:** I assume at-least-once transport, use an inbox table for dedupe, and say "effectively once in this database" rather than promise global exactly-once.
+
+### Prompt: "RPO vs RTO?"
+
+**0–10s — Definition:** RPO is the maximum acceptable data-loss window; RTO is the maximum acceptable recovery time.
+
+**10–30s — Mechanism:** A smaller RPO requires more frequent backup or replication and possibly synchronous acknowledgement. A smaller RTO requires warm capacity, automated promotion/routing, and rehearsed runbooks.
+
+**30–45s — Failure mode:** Replication also copies deletion and corruption, so it is not a backup; a failover diagram never exercised is not proof of recovery.
+
+**45–60s — Concrete choice:** For a ledger I would target near-zero RPO, maintain isolated immutable backups, and regularly time a regional restore to prove the stated RTO.
+
+---
+
 ## Git
 
 ### Prompt: "What is a commit, branch, and HEAD?"

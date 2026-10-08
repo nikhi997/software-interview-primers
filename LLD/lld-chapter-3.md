@@ -230,6 +230,8 @@ Pick whichever sounds interesting. The check on yourself: **did you have to chan
 
 Bonus reflection question, no code required: in the `DualStorage` option above — that class itself has `save` and `load` methods, and it takes two other storages. So `DualStorage` is *both* a storage AND a consumer of storages. Sit with that for a second. It's a hint about something powerful that we'll do more of later.
 
+After Chapters 11 and 20, revisit this seam in the [boundaries and testing companion](lld-boundaries-and-testing.md): the same shape becomes a port, concrete storages become adapters, and contract tests prove each adapter honors the promise.
+
 ---
 
 <div align="right">
