@@ -141,6 +141,8 @@ We've covered scale (Part 1) and the big behaviors: fast (cache), decoupled (que
 
 Next: clients can send more requests than we can or should serve. Time to learn to say "no" gracefully — rate limiting and backpressure.
 
+After the core track, make the durability promise concrete as regional RPO/RTO and failover choices in the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md).
+
 ---
 
 <div align="right">

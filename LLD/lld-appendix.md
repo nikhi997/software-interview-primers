@@ -2,7 +2,7 @@
 
 *[← Chapter 20](lld-chapter-20.md) · [Contents](lld-README.md)*
 
-Three short references for after you've finished the book. Not study material — lookup material. Want the whole book applied to one running system instead? See the [code evolution companion](lld-code-evolution.md). Want retrieval practice in fresh domains instead? See the [cold rebuild drills](lld-cold-rebuild-drills.md).
+Three short references for after you've finished the book. Not study material — lookup material. Want the whole book applied to one running system instead? See the [code evolution companion](lld-code-evolution.md). Want retrieval practice in fresh domains instead? See the [cold rebuild drills](lld-cold-rebuild-drills.md). Want to turn dependency inversion and concurrency into executable evidence? See the [boundaries and testing companion](lld-boundaries-and-testing.md).
 
 ## A. Pattern catalog
 

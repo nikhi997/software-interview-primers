@@ -194,6 +194,8 @@ Notice these reuse everything: stateless services (Ch 2) make rolling deploys sa
 
 Next: the interview ritual itself — six steps, applied end-to-end to a URL shortener at scale — the loop you'll run on every problem for the rest of the book.
 
+After the worked problems, rehearse operational ownership across regions—routing, residency, recovery drills, security, and cost—in the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md).
+
 ---
 
 <div align="right">

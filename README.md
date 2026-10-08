@@ -14,6 +14,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── lld-appendix.md
 │   ├── lld-code-evolution.md       companion: one system, twenty requirement waves
 │   ├── lld-cold-rebuild-drills.md  companion: solution-free rebuild drills
+│   ├── lld-boundaries-and-testing.md companion: ports/adapters, contracts, and testing
 │   └── code/                  runnable Python (ch6.py, ch7.py, …)
 │
 ├── HLD/          High-Level Design — scaling, distributed systems, architecture
@@ -21,6 +22,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── hld-chapter-1.md … hld-chapter-16.md
 │   ├── hld-appendix.md
 │   ├── hld-visual-deepdive.md      companion: all 16 chapters as one diagram-led story
+│   ├── hld-multi-region-event-driven-drills.md companion: production design drills
 │   └── code/                  runnable Python (consistent_hashing, rate_limiter, estimate)
 │
 ├── DSA/          Data Structures & Algorithms — the coding round
@@ -46,9 +48,9 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── aiml-rebuild-labs.md        companion: fixture-first Session 2 labs
 │   └── code/                  runnable Python (gradient_descent, embeddings_similarity, rag_retrieval)
 │
-├── Foundations/  CS Fundamentals — SQL, databases, OS, networking (the pop-quiz round)
+├── Foundations/  CS Fundamentals — SQL, databases, OS, networking, distributed systems
 │   ├── foundations-README.md  start here for Foundations
-│   ├── 1-sql-and-databases/ … 5-bonus/   chapters, grouped by domain
+│   ├── 1-sql-and-databases/ … 6-distributed-systems/ chapters, grouped by domain
 │   ├── foundations-appendix.md
 │   ├── foundations-mechanism-maps.md   companion: causal flow maps per domain
 │   ├── foundations-60-second-recall.md companion: timed spoken answer skeletons
@@ -64,14 +66,14 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 
 ## Companions
 
-Each track ships **companion files** alongside its chapters. They are not extra chapters and they teach nothing new — they exist for the *second* pass, when you're rebuilding from memory rather than reading for the first time.
+Each track ships **companion files** alongside its chapters. They do not extend the numbered chapter sequence — they exist for the *second* pass, when you're rebuilding from memory or transferring chapter mechanisms into production-shaped decisions.
 
 The role split is the same everywhere: **chapters teach**, the **appendix is lookup**, and the **companions make you produce something** — a diagram, code, a decision, a spoken answer.
 
 | Track | Companion | What it makes you do |
 |---|---|---|
-| HLD | [Visual deepdive](HLD/hld-visual-deepdive.md) | Redraw an architecture that grows one move at a time |
-| LLD | [Code evolution](LLD/lld-code-evolution.md) · [Cold rebuild drills](LLD/lld-cold-rebuild-drills.md) | Watch one system bend through 20 requirement waves; then rebuild cold |
+| HLD | [Visual deepdive](HLD/hld-visual-deepdive.md) · [Multi-region and event-driven drills](HLD/hld-multi-region-event-driven-drills.md) | Redraw an architecture that grows one move at a time; then defend regional and event-flow choices |
+| LLD | [Code evolution](LLD/lld-code-evolution.md) · [Cold rebuild drills](LLD/lld-cold-rebuild-drills.md) · [Boundaries and testing](LLD/lld-boundaries-and-testing.md) | Watch one system bend; rebuild cold; then prove its seams and concurrency contracts |
 | DSA | [Waste map](DSA/dsa-waste-map.md) · [Mixed cold drills](DSA/dsa-mixed-cold-drills.md) | Name the waste, try the tempting patch, then solve unlabelled problems on a clock |
 | Behavioural | [Signal router](Behavioural/behavioural-signal-router.md) · [Mock deck](Behavioural/behavioural-mock-deck.md) | Hear the hidden signal, pick a story, survive the follow-ups |
 | AI/ML | [Model to product](AI-ML/aiml-model-to-product.md) · [Rebuild labs](AI-ML/aiml-rebuild-labs.md) | Trace one product through every chapter; cause the failures yourself |
@@ -88,7 +90,7 @@ Read a track's chapters first. The companions are worth little until you have so
 | Core principle | Feel the pain before naming the pattern | Feel the bottleneck before reaching for the component | Feel the brute force before reaching for the pattern | Hear the signal before telling the story | Feel the data before reaching for the model | Feel the mechanism before trusting the abstraction | Feel the concept beneath the brand name |
 | Unit of thought | Classes, responsibilities | Servers, data stores, network | Patterns over arrays, trees, graphs | Stories, signals | Data, models, LLMs | Queries, threads, packets | Named technologies (Spring, Kafka, Redis…) |
 | Interview round | "Design the classes for X" (45 min) | "Design X at scale" (45 min) | "Solve this on the whiteboard" (45 min) | "Tell me about a time..." (45 min) | "Design an AI feature / explain a concept" (45 min) | "Pop-quiz: what's an index? TCP or UDP?" (rapid-fire) | "Have you used Kafka / Redis / Spring?" (woven through screens) |
-| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 18 ch + appendix | 14 ch + appendix | 9 ch + appendix |
+| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 18 ch + appendix | 15 ch + appendix | 9 ch + appendix |
 | Start here | [LLD/lld-README.md](LLD/lld-README.md) | [HLD/hld-README.md](HLD/hld-README.md) | [DSA/dsa-README.md](DSA/dsa-README.md) | [Behavioural/behavioural-README.md](Behavioural/behavioural-README.md) | [AI-ML/aiml-README.md](AI-ML/aiml-README.md) | [Foundations/foundations-README.md](Foundations/foundations-README.md) | [Interview-Topics/interview-topics-README.md](Interview-Topics/interview-topics-README.md) |
 
 The first four are the classic loop: almost every software interview is some mix of a coding round (DSA), one or two design rounds (LLD and/or HLD), and a behavioural round. **AI/ML** is the future-proofing track — the one the market is increasingly adding as "AI Engineer" becomes a mainstream title and ordinary postings start listing "experience integrating LLMs." **Foundations** is the breadth track: the rapid-fire CS fundamentals (SQL, databases, OS, networking) that surface as screening questions and woven into other rounds — a "pick the chapters your role needs" reference rather than a strict read-through. **Interview-Topics** is the named-technology layer: the brands a JD lists by name (Java, Spring Boot, Postgres, Kafka, Redis, GCP) and the "have you used X?" questions, each pointing down to the concept tracks for the *why*. Prepare them all and very little can surprise you.

@@ -674,7 +674,7 @@ Three passes, spread over days — the same contract as the chapters, compressed
 
 **Pass 3 (~30 min).** Pick two parts and explain each aloud in four or five sentences: what the system was, what the bottleneck was, what the move was, what it cost, and what new bottleneck the move created. If you can't name the cost, you don't have the move.
 
-For depth on anything here, go back to the source chapter. For lookup — the latency ladder, capacity rules of thumb, the component catalog, the 35-minute interview budget — use the [appendix](hld-appendix.md); it's a reference table, this file is a story.
+For depth on anything here, go back to the source chapter. For lookup — the latency ladder, capacity rules of thumb, the component catalog, the 35-minute interview budget — use the [appendix](hld-appendix.md); it's a reference table, this file is a story. When the redraw is fluent, move to the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md) and pressure-test the same mechanisms against residency, regional failure, replay, and recovery constraints.
 
 ## The bumper sticker
 

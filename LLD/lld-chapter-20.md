@@ -193,7 +193,7 @@ Run it and exactly one of Alice or Bob gets the seat; the other is told it's tak
 
 ## Step 6: Tradeoffs
 
-- **"This is one process. What about many servers?"** → A `threading.Lock` only guards one process's memory. Across servers the same span has to be enforced by the store: a database row lock (`SELECT ... FOR UPDATE`), an atomic compare-and-set on the seat row, or a distributed lock (e.g., Redis). The shape is identical — "make check-and-set atomic" — only the lock moves.
+- **"This is one process. What about many servers?"** → A `threading.Lock` only coordinates threads sharing this process's memory; every other process has a different lock. Put the invariant where every writer meets: prefer a database constraint, conditional update/compare-and-set, or row lock at the shared store. A distributed lock is a separate lease-based coordination system—not a mutex that simply "moves" to Redis—and needs expiry, ownership, and usually fencing against a paused old holder. Use it only when the store cannot enforce the invariant directly.
 
 - **"Lock granularity?"** → One lock per *show* lets different shows book in parallel while keeping each show's seats consistent. A single global lock would be correct but serialize the whole system. Per-*seat* locks allow even more parallelism but invite deadlock when a booking spans several seats — acquire them in a fixed order (e.g., sorted by id) to stay safe (appendix C).
 
@@ -225,6 +225,8 @@ The crux here was not a pattern. It was choosing a lock and its granularity, and
 You've now done six worked problems across two flavors: object-modeling (Splitwise, Library, Shopping, Ride-sharing), a data-structure-driven one (LRU), and a concurrency-driven one (booking). The test that matters now is the cold one: pick a problem you *haven't* seen — food delivery, a chess game, a file system, a parking garage you haven't read — set a 25-minute timer, and run the full ritual. If what you produce resembles these chapters, you're interview-ready.
 
 The appendix that follows is a reference — a pattern catalog, concurrency basics, and common pitfalls. Reach for it after you've internalized the chapters, not as study material.
+
+For the production version of this boundary—repository contracts, optimistic versions, concurrent tests, and why a fake is not enough—continue with the [boundaries and testing companion](lld-boundaries-and-testing.md).
 
 ---
 
