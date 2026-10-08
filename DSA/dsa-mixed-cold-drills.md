@@ -6,6 +6,10 @@ This workbook is for cold retrieval, not reading. The chapters teach, the append
 
 Start these after Chapter 5. Use them heavily after Chapter 15. They do **not** replace problem reps from the appendix; they train the decision muscle between reps.
 
+After these packets and the core problem list are comfortable, the
+[optional advanced companion](dsa-advanced-companion.md) adds one specialist packet. It is not a
+reason to skip or relabel these core drills.
+
 ---
 
 ## Rules for every packet

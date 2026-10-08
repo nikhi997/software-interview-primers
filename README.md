@@ -31,6 +31,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── dsa-appendix.md
 │   ├── dsa-waste-map.md            companion: naive → tempting patch → optimization ledger
 │   ├── dsa-mixed-cold-drills.md    companion: unlabelled timed drill packets
+│   ├── dsa-advanced-companion.md   optional: specialist topics after core fluency
 │   └── code/                  runnable Python (sliding_window, binary_search_answer, dynamic_programming)
 │
 ├── Behavioural/  Behavioural — the "tell me about a time" round
@@ -58,7 +59,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │
 └── Interview-Topics/  Named tech — Java, Spring Boot, Postgres, Kafka, Redis, cloud (the "have you used X?" layer)
     ├── interview-topics-README.md  start here for Interview-Topics
-    ├── interview-topics-chapter-1.md … interview-topics-chapter-9.md
+    ├── interview-topics-chapter-1.md … interview-topics-chapter-10.md
     ├── interview-topics-appendix.md
     ├── interview-topics-stack-map.md     companion: one request across the whole stack
     └── interview-topics-honest-pivots.md companion: scored gap-bridging drills
@@ -66,15 +67,18 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 
 ## Companions
 
-Each track ships **companion files** alongside its chapters. They do not extend the numbered chapter sequence — they exist for the *second* pass, when you're rebuilding from memory or transferring chapter mechanisms into production-shaped decisions.
+Each track ships **companion files** alongside its chapters. Most are not extra chapters and teach
+nothing new—they exist for the *second* pass, when you're rebuilding from memory rather than
+reading for the first time. The DSA advanced companion is the explicit exception: it is optional
+extension material for specialized loops, only after the 15-chapter core is fluent.
 
 The role split is the same everywhere: **chapters teach**, the **appendix is lookup**, and the **companions make you produce something** — a diagram, code, a decision, a spoken answer.
 
 | Track | Companion | What it makes you do |
 |---|---|---|
-| HLD | [Visual deepdive](HLD/hld-visual-deepdive.md) · [Multi-region and event-driven drills](HLD/hld-multi-region-event-driven-drills.md) | Redraw an architecture that grows one move at a time; then defend regional and event-flow choices |
-| LLD | [Code evolution](LLD/lld-code-evolution.md) · [Cold rebuild drills](LLD/lld-cold-rebuild-drills.md) · [Boundaries and testing](LLD/lld-boundaries-and-testing.md) | Watch one system bend; rebuild cold; then prove its seams and concurrency contracts |
-| DSA | [Waste map](DSA/dsa-waste-map.md) · [Mixed cold drills](DSA/dsa-mixed-cold-drills.md) | Name the waste, try the tempting patch, then solve unlabelled problems on a clock |
+| HLD | [Visual deepdive](HLD/hld-visual-deepdive.md) | Redraw an architecture that grows one move at a time |
+| LLD | [Code evolution](LLD/lld-code-evolution.md) · [Cold rebuild drills](LLD/lld-cold-rebuild-drills.md) | Watch one system bend through 20 requirement waves; then rebuild cold |
+| DSA | [Waste map](DSA/dsa-waste-map.md) · [Mixed cold drills](DSA/dsa-mixed-cold-drills.md) · [Optional advanced companion](DSA/dsa-advanced-companion.md) | Name the waste, solve unlabelled problems on a clock, then optionally earn specialist tools |
 | Behavioural | [Signal router](Behavioural/behavioural-signal-router.md) · [Mock deck](Behavioural/behavioural-mock-deck.md) | Hear the hidden signal, pick a story, survive the follow-ups |
 | AI/ML | [Model to product](AI-ML/aiml-model-to-product.md) · [Rebuild labs](AI-ML/aiml-rebuild-labs.md) | Trace one product through every chapter; cause the failures yourself |
 | Foundations | [Mechanism maps](Foundations/foundations-mechanism-maps.md) · [60-second recall](Foundations/foundations-60-second-recall.md) | Follow the causal chain; then say it out loud, on a timer |
@@ -90,10 +94,10 @@ Read a track's chapters first. The companions are worth little until you have so
 | Core principle | Feel the pain before naming the pattern | Feel the bottleneck before reaching for the component | Feel the brute force before reaching for the pattern | Hear the signal before telling the story | Feel the data before reaching for the model | Feel the mechanism before trusting the abstraction | Feel the concept beneath the brand name |
 | Unit of thought | Classes, responsibilities | Servers, data stores, network | Patterns over arrays, trees, graphs | Stories, signals | Data, models, LLMs | Queries, threads, packets | Named technologies (Spring, Kafka, Redis…) |
 | Interview round | "Design the classes for X" (45 min) | "Design X at scale" (45 min) | "Solve this on the whiteboard" (45 min) | "Tell me about a time..." (45 min) | "Design an AI feature / explain a concept" (45 min) | "Pop-quiz: what's an index? TCP or UDP?" (rapid-fire) | "Have you used Kafka / Redis / Spring?" (woven through screens) |
-| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 18 ch + appendix | 15 ch + appendix | 9 ch + appendix |
+| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 18 ch + appendix | 14 ch + appendix | 10 ch + appendix |
 | Start here | [LLD/lld-README.md](LLD/lld-README.md) | [HLD/hld-README.md](HLD/hld-README.md) | [DSA/dsa-README.md](DSA/dsa-README.md) | [Behavioural/behavioural-README.md](Behavioural/behavioural-README.md) | [AI-ML/aiml-README.md](AI-ML/aiml-README.md) | [Foundations/foundations-README.md](Foundations/foundations-README.md) | [Interview-Topics/interview-topics-README.md](Interview-Topics/interview-topics-README.md) |
 
-The first four are the classic loop: almost every software interview is some mix of a coding round (DSA), one or two design rounds (LLD and/or HLD), and a behavioural round. **AI/ML** is the future-proofing track — the one the market is increasingly adding as "AI Engineer" becomes a mainstream title and ordinary postings start listing "experience integrating LLMs." **Foundations** is the breadth track: the rapid-fire CS fundamentals (SQL, databases, OS, networking) that surface as screening questions and woven into other rounds — a "pick the chapters your role needs" reference rather than a strict read-through. **Interview-Topics** is the named-technology layer: the brands a JD lists by name (Java, Spring Boot, Postgres, Kafka, Redis, GCP) and the "have you used X?" questions, each pointing down to the concept tracks for the *why*. Prepare them all and very little can surprise you.
+The first four are the classic loop: almost every software interview is some mix of a coding round (DSA), one or two design rounds (LLD and/or HLD), and a behavioural round. **AI/ML** is the future-proofing track — the one the market is increasingly adding as "AI Engineer" becomes a mainstream title and ordinary postings start listing "experience integrating LLMs." **Foundations** is the breadth track: the rapid-fire CS fundamentals (SQL, databases, OS, networking) that surface as screening questions and woven into other rounds — a "pick the chapters your role needs" reference rather than a strict read-through. **Interview-Topics** is the named-technology layer: the brands a JD lists by name (Java, Spring Boot, Postgres, Kafka, Redis, GCP, FastAPI, Kubernetes, Terraform) and the "have you used X?" questions, each pointing down to the concept tracks for the *why*. Prepare them all and very little can surprise you.
 
 ## The one shared idea
 
@@ -139,6 +143,9 @@ All seven tracks share one non-negotiable rule: **each chapter is a few short se
 > **AI/ML:** *Machine learning is learning a function from data instead of writing it by hand — so feel the data before reaching for the model, and an LLM stops being magic and becomes a component you can engineer.*
 
 > **Foundations:** *Every pop-quiz question asks whether you know what's happening one level below where you normally code. Feel the mechanism — what the database does with your query, what the OS does with your thread, what TCP does with your bytes — and no pop quiz can catch you out.*
+
+> **Interview-Topics:** *A job description names brands; the interview tests the concepts beneath
+> them. Lead with the mechanism, map the brand, and state your experience boundary honestly.*
 
 Seven tracks, one habit: understand what's actually being asked before you reach for the answer. That's the whole game.
 

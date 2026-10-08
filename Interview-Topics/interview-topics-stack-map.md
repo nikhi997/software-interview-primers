@@ -1,6 +1,6 @@
 # Field guide: one authenticated order through the stack
 
-*[← Chapter 9](interview-topics-chapter-9.md) · [Contents](interview-topics-README.md)*
+*[← Chapter 10](interview-topics-chapter-10.md) · [Contents](interview-topics-README.md)*
 
 The chapters are recall cards per tool. The appendix is the skim-the-morning-of reference. This field guide does a different job: it follows **one concrete request** across the tools so you can explain why each brand sits where it sits.
 
@@ -47,7 +47,9 @@ Spring Boot and FastAPI are **alternative framework lanes**, not two services in
 | Managed data | Managed Postgres / Redis / Kafka | Outsourced operations for stateful systems | Backups, patching, failover, and scaling are platform concerns, not app code | Know what is still yours: schema, indexes, connection pools, TTLs, partition keys, ACLs | Cloud SQL/RDS, Memorystore/ElastiCache, MSK/Confluent Cloud/Pub/Sub. |
 | Access control | IAM / service accounts | Machine identity and least privilege | The service should access only the DB, cache, broker, and secrets it needs | Distinguish user identity from service identity; rotate and scope credentials | AWS IAM roles, Azure managed identities, Kubernetes service accounts. |
 | Configuration | Secret Manager | Runtime secret delivery outside source control | DB passwords, signing keys, and broker credentials must not live in code or images | Rotation plan, versioning, least privilege, and no secret values in logs | AWS Secrets Manager/SSM, Vault, Kubernetes Secrets with external secret operators. |
-| Observability | Logs, metrics, traces | The feedback loop for production behavior | You need to see one request across gateway, app, DB, Kafka relay, and consumers | Correlation IDs, RED metrics, consumer lag, outbox lag, error rates, p95/p99 latency | OpenTelemetry, Cloud Logging/Monitoring/Trace, Datadog, Prometheus/Grafana. Concept: [HLD reliability](../HLD/hld-README.md). |
+| Delivery | CI/CD + IaC | Reviewable evidence, immutable artifact promotion, and declared infrastructure | The same tested image digest and reviewed environment change reach production | Provenance, policy gates, drift, rollout stop conditions, and rollback authority | GitHub Actions/Jenkins/GitLab CI; Terraform/Pulumi/CloudFormation. Concept: [Chapter 10](interview-topics-chapter-10.md). |
+| Observability | OpenTelemetry + backend | Vendor-neutral instrumentation/context plus storage, query, and alerting | You need to see one request across gateway, app, DB, Kafka relay, and consumers | RED metrics, context propagation, cardinality, sampling, redaction, consumer/outbox lag, SLO burn | Cloud Monitoring/Trace, Datadog, Prometheus/Grafana, Jaeger. Concept: [Chapter 10](interview-topics-chapter-10.md). |
+| Safe change | Canary + health gates | Controlled exposure with explicit success and stop conditions | A deployment is an experiment until user-visible signals prove it safe | Baseline comparison, automatic pause/rollback, expand/contract schemas, mixed-version compatibility | Rolling, blue/green, feature flags, Argo Rollouts, cloud deployment services. Concept: [Chapter 10](interview-topics-chapter-10.md). |
 
 ---
 
@@ -55,7 +57,7 @@ Spring Boot and FastAPI are **alternative framework lanes**, not two services in
 
 "A client calls `POST /orders` through the cloud load balancer and API gateway. The gateway validates the OIDC JWT — signature, issuer, audience, expiry — and the service authorizes the `orders:create` scope. In the app I would implement the route in either Spring Boot with bean validation or FastAPI with Pydantic and `Depends`; same role, different framework lane.
 
-Before the expensive write, Redis enforces a rate limit and checks the idempotency key. Then Postgres is the source of truth: in one transaction I insert the `orders` row and an `outbox_event` row. If that commits, the API can return `201 Created`. A relay later publishes `OrderCreated` from the outbox to Kafka. Payment and notification are separate consumer groups, and because Kafka is at-least-once, those consumers are idempotent and use retries plus a DLQ. Reads use cache-aside: `GET /orders/{id}` checks Redis, falls back to Postgres on a miss, and invalidates or refreshes on updates. I would run it on Cloud Run or Kubernetes with managed Postgres/Redis/Kafka, least-privilege IAM, secrets outside code, and logs/metrics/traces wired end to end."
+Before the expensive write, Redis enforces a rate limit and checks the idempotency key. Then Postgres is the source of truth: in one transaction I insert the `orders` row and an `outbox_event` row. If that commits, the API can return `201 Created`. A relay later publishes `OrderCreated` from the outbox to Kafka. Payment and notification are separate consumer groups, and because Kafka is at-least-once, those consumers are idempotent and use retries plus a DLQ. Reads use cache-aside: `GET /orders/{id}` checks Redis, falls back to Postgres on a miss, and invalidates or refreshes on updates. I would build one immutable image, promote its digest through CI/CD, and run it on Cloud Run or Kubernetes with managed data services, workload identity, externally managed secrets, and OpenTelemetry context wired end to end. A canary advances only while SLO and business guardrails match the baseline."
 
 Notice the shape: every component earns its place by solving a specific pain.
 
@@ -77,6 +79,9 @@ Notice the shape: every component earns its place by solving a specific pain.
 | Consumer lag | Payment/notification falls behind | Monitor lag, scale consumers within partition limits, check downstream bottlenecks, and shed noncritical work if needed | More consumers than partitions in one group will not increase parallelism. |
 | Stale cache | `GET /orders/{id}` returns old data after update | Update Postgres first, then invalidate or refresh Redis; TTL bounds the worst-case stale window | Cache-aside is not a consistency guarantee; Postgres remains truth. |
 | Cache stampede | Hot key expires and many requests hit Postgres | Use TTL jitter, single-flight rebuild, short locks, or pre-warming | A cache can move load; it can also concentrate failure. |
+| Canary regression | New version's errors, latency, saturation, or business outcome diverges from baseline | Stop exposure automatically; rollback compatible code/config or roll forward if data has already migrated; verify user-visible recovery | A green deployment job does not prove a healthy release. |
+| Broken trace | A downstream span starts a new trace, hiding the slow hop | Propagate W3C trace context over HTTP and message metadata; verify instrumentation at boundaries | Logs with request IDs help, but they are not a distributed trace. |
+| Secret exposure | Credential appears in source, CI output, IaC state, or telemetry | Revoke/rotate immediately, contain access, preserve evidence, audit use, then remove the leak and add a guardrail | Deleting the visible string does not invalidate the credential or erase history. |
 
 ---
 
@@ -90,6 +95,8 @@ Before you move on, make sure your answer has these safeguards:
 - Kafka ordering is per partition, not global; delivery is commonly at-least-once, so duplicates are normal.
 - Cache-aside makes reads faster but can be stale; invalidation plus TTL bounds the problem, it does not erase it.
 - Managed cloud services reduce operations; they do not remove schema design, partition keys, IAM, secrets, or observability from your job.
+- The same signed image digest is promoted; rollout has explicit health gates and a schema-compatible rollback or roll-forward path.
+- Trace context crosses HTTP and messaging boundaries, sensitive fields are redacted before export, and alerts follow user symptoms/SLO burn.
 
 ## The bumper sticker
 

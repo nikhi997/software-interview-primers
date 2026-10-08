@@ -1,6 +1,6 @@
 # Drill deck: honest pivots for named-technology gaps
 
-*[← Chapter 9](interview-topics-chapter-9.md) · [Contents](interview-topics-README.md)*
+*[← Chapter 10](interview-topics-chapter-10.md) · [Contents](interview-topics-README.md)*
 
 The chapters are recall cards per tool. The appendix is the skim-the-morning-of reference. The stack map integrates tools across one request. This drill deck is different: it makes you rehearse **honest gap-bridging** out loud, under a score.
 
@@ -167,6 +167,29 @@ Use the six beats every time:
 1. Operational failure: "A high-update table gets slower over time. What Postgres-specific issue might be involved?"
 2. Tradeoff: "Why not index every column?"
 3. Implementation detail: "What does the leftmost-prefix rule mean for a composite index?"
+
+**Score:** honesty __/2 · specificity __/2 · mapping __/2 · caveat __/2 · depth __/2 · concision __/2 = __/12
+
+---
+
+## Drill 7 — Kubernetes / GitOps platform ↔ another orchestrator or deployment system
+
+**Prompt:** "We run Kubernetes with Argo CD. Have you operated that stack in production?"
+
+| Beat | 60-second answer |
+|---|---|
+| Truth boundary | "I have shipped and operated containerized services through another orchestrator/deployment controller; I have not been the primary production owner of Kubernetes with Argo CD." |
+| Adjacent evidence | "I have built immutable images, set health checks and resource sizing, promoted artifacts through gated environments, handled secret delivery, watched rollout telemetry, and rolled back unhealthy releases." |
+| Map | "The transferable concepts are scheduling and desired-state reconciliation. A Deployment asks a controller to maintain replicas and roll versions; GitOps asks a controller to reconcile reviewed repository state into the cluster." |
+| Caveat | "Kubernetes adds exact object and control-plane semantics—Pods, Deployments, Services, probes, requests/limits, RBAC—and Argo adds sync, health, drift, and promotion behavior. I would not equate another platform's commands or rollback details with those." |
+| Demonstrate | "For an order-service canary, I would promote one signed image digest, use startup/readiness/liveness for distinct failure meanings, expose a small traffic cohort, gate on errors/latency/business signals, and keep database changes expand/contract compatible. A failed gate stops exposure and triggers the rehearsed rollback or roll-forward path." |
+| Close | "I would close the brand gap by deploying the Chapter 10 lab service to a disposable cluster, deliberately failing readiness and a canary gate, and documenting reconciliation and recovery." |
+
+**Probes**
+
+1. Operational failure: "The database is down. Which probe should fail, and why not restart every Pod?"
+2. Tradeoff: "When is a managed container runtime simpler than Kubernetes?"
+3. Implementation detail: "What is the difference between an image tag and a digest, and which do you promote?"
 
 **Score:** honesty __/2 · specificity __/2 · mapping __/2 · caveat __/2 · depth __/2 · concision __/2 = __/12
 

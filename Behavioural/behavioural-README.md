@@ -54,6 +54,12 @@ The chapters teach the skill, the appendix gives you lookup tables, and these tw
 - [Signal router](behavioural-signal-router.md) — use from Chapter 1 onward whenever you practice decoding a prompt into the probable signal and choosing the right story.
 - [Mock deck](behavioural-mock-deck.md) — use from Chapter 10, or any time you are rehearsing out loud with follow-ups and scorecards.
 
+The mock deck also includes scored, red-flagged practice for modern engineering situations:
+remote/asynchronous and cross-cultural collaboration, reorganization/change, cross-team
+dependencies, security/privacy, responsible AI, legal/compliance disagreement, and refusing unsafe
+shortcuts. These are companion drills—not extra chapters—because they reuse the conflict,
+ownership, ambiguity, judgment, and communication signals taught in Chapters 4–10.
+
 ## Prerequisites
 
 - At least one project, internship, or job you can talk about in detail. (Students: course projects, hackathons, open source, and club leadership all count.)
