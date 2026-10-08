@@ -140,14 +140,14 @@ Answer aloud:
 > async route stalls the whole event loop), know that async buys I/O concurrency not CPU
 > parallelism, and the rest is naming the concept beneath each decorator.*
 
-That's the named-technology layer. For the concepts beneath every chapter, the **appendix**
-collects a per-technology glossary and a full interview question bank — your skim-the-morning-of
-reference.
+Next: getting that application into production safely. Chapter 10 maps containers, Kubernetes,
+CI/CD, IaC, secrets, OpenTelemetry, rollout, and incident response to the portable operational
+concepts beneath their brand names.
 
 ---
 
 <div align="right">
 
-[Appendix →](interview-topics-appendix.md)
+[Chapter 10 →](interview-topics-chapter-10.md)
 
 </div>

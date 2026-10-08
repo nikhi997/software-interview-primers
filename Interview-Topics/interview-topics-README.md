@@ -1,6 +1,6 @@
-# Interview-Topics — the 9-chapter named-technology recall layer (Java · Spring Boot · Postgres · Kafka · Redis · auth · cloud · FastAPI)
+# Interview-Topics — the 10-chapter named-technology recall layer (Java · Spring Boot · Postgres · Kafka · Redis · auth · cloud · FastAPI · platform operations)
 
-A 9-chapter primer on the **named technologies** that job descriptions list by brand — "Java, Spring Boot, Kafka, Postgres, Redis, GCP, FastAPI" — and that interviewers probe with "have you used X?" Written in the same conversational style as the LLD, HLD, DSA, Behavioural, AI/ML, and Foundations primers in this collection.
+A 10-chapter primer on the **named technologies** that job descriptions list by brand — "Java, Spring Boot, Kafka, Postgres, Redis, GCP, FastAPI, Kubernetes, Terraform" — and that interviewers probe with "have you used X?" Written in the same conversational style as the LLD, HLD, DSA, Behavioural, AI/ML, and Foundations primers in this collection.
 
 Core principle: **feel the concept beneath the brand name.**
 
@@ -42,8 +42,9 @@ Read the chapters your JD names; they're independent. A typical backend JD touch
 - Chapter 7: Auth *(authentication vs authorization, sessions vs JWT, OAuth2/OIDC, auth across microservices)*
 - Chapter 8: Cloud *(GCP specifics, and the portable primitives that survive a cloud switch)*
 - Chapter 9: FastAPI *(the Python web framework — ASGI async, Pydantic, Depends; the parallel to Spring Boot)*
+- Chapter 10: Platform engineering & production operations *(containers, orchestration, delivery, IaC, secrets, telemetry, safe rollout, incidents)*
 
-**Field guide:** [One authenticated order through the stack](interview-topics-stack-map.md) — one concrete request traced across gateway, auth, framework, Redis, Postgres, outbox, Kafka, cache, and cloud operations.
+**Field guide:** [One authenticated order through the stack](interview-topics-stack-map.md) — one concrete request traced across gateway, auth, framework, Redis, Postgres, outbox, Kafka, cache, and platform operations.
 
 **Drill deck:** [Honest pivots for named-technology gaps](interview-topics-honest-pivots.md) — scored 60-second drills for bridging unfamiliar brands without implying experience you do not have.
 
@@ -60,6 +61,8 @@ Same spaced method as Foundations — this track is tested by *speaking*:
 - **Session 3 (say it out loud):** answer the "Try it" questions aloud as if to an interviewer — especially the honest-pivot for any gap.
 
 ≈1–1.5 hours per chapter — shorter than the teaching tracks, because these are recall-focused.
+Chapter 10 also includes a dependency-free Python lab for rollout gates, redaction, and trace
+propagation.
 
 ## Prerequisites
 

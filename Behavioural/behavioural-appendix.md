@@ -107,6 +107,26 @@ Drill these: read one, decode its signal, name which story you'd play. (Chapters
 - Why this company / this role?
 - Where do you want to grow next?
 
+**Modern collaboration, change & dependencies (Mock Cards 11–14)**
+- A time you kept a distributed team aligned without relying on meetings.
+- A time asynchronous communication failed. How did you repair the working system?
+- A time different cultural or communication norms caused friction.
+- A time you discovered your interpretation of someone's behavior was wrong.
+- A reorganization or strategy change that invalidated your plan.
+- A time you preserved ownership or knowledge through a team change.
+- A critical cross-team dependency that threatened delivery.
+- A time you escalated a dependency risk without blaming the other team.
+
+**Trust, safety & governed disagreement (Mock Cards 15–18)**
+- A time you discovered a security or privacy risk during delivery.
+- A time protecting user data required changing scope or schedule.
+- A responsible-AI concern you raised or investigated.
+- A time evidence led you to add human review, an appeal path, or not automate.
+- A disagreement with legal, compliance, audit, or risk partners.
+- A time you proposed an alternative control to meet the same obligation.
+- A time you were pressured to take a shortcut you believed was unsafe.
+- A time you said no under delivery pressure while still offering a viable path.
+
 ---
 
 ## D. The signal map
@@ -125,6 +145,14 @@ The core lookup: question → what it's scoring → which kind of story to reach
 | Competing priorities | Impact-based judgment | You prioritizing by impact + aligning stakeholders |
 | Tight deadline / slipping | Communication under pressure | Early flag + options, not heroics or a silent miss |
 | Proudest project | Impact + communication | Your biggest quantified win, told cleanly |
+| Remote / asynchronous collaboration | Durable clarity + equitable participation | Decision state, owner, feedback window, handoff, and evidence of understanding |
+| Cross-cultural friction | Collaboration + self-awareness | You testing your interpretation, avoiding stereotypes, and adapting team norms reciprocally |
+| Reorg / major change | Adaptability + responsible communication | Facts vs unknowns, reset priorities, preserved continuity, and empathy without false certainty |
+| Cross-team dependency | Shared ownership across boundaries | Explicit contract/owner/date, understood constraints, mitigation, and neutral escalation |
+| Security / privacy risk | Judgment + integrity | Contain and report, minimize sensitive handling, partner with experts, verify and prevent |
+| Responsible AI | Impact-aware judgment under uncertainty | Affected people, tested harms, boundaries, human accountability, monitoring, and stop condition |
+| Legal / compliance disagreement | Governed collaboration | Underlying obligation, evidence-backed compliant options, decision authority, recorded residual risk |
+| Unsafe shortcut | Integrity under pressure | Concrete harm, clear boundary, minimum safe alternative, escalation, documentation, verification |
 
 ---
 
@@ -144,6 +172,22 @@ Before any behavioural round, check your stories and delivery against the patter
 - [ ] **Fluent not scripted** — I know each story's beats but speak them fresh, not as a memorized monologue.
 - [ ] **Length matched** — stories land in 2–3 minutes; I match answer length to the question's scope.
 - [ ] **Coverage complete** — every signal column in my matrix has ≥2 stories.
+- [ ] **Async is not surveillance** — remote stories use durable context and outcome-based alignment,
+  not online presence, instant replies, or meeting volume.
+- [ ] **No cultural stereotyping** — I describe observable behavior, question my interpretation, and
+  never make one person represent a culture.
+- [ ] **Facts separated from rumor** — change/reorg stories protect confidentiality and never present
+  reassurance, speculation, or personnel information as fact.
+- [ ] **Dependency risk without blame** — cross-team stories include the other team's constraints,
+  an explicit contract, mitigation, and neutral escalation.
+- [ ] **Sensitive detail minimized** — security/privacy stories do not reveal exploit instructions,
+  credentials, personal data, confidential incidents, or unsupported legal conclusions.
+- [ ] **AI impact is about people** — responsible-AI stories include affected users, failure slices,
+  human accountability/appeal, monitoring, and a stop or no-build condition.
+- [ ] **Governance respected** — legal/compliance disagreement distinguishes obligation from
+  implementation and records decision authority and residual risk.
+- [ ] **Unsafe means concrete harm** — refusal stories state evidence, boundary, safe alternative,
+  escalation path, and verification without grandstanding.
 
 ---
 

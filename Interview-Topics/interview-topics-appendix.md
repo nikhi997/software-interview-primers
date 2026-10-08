@@ -1,6 +1,6 @@
 # Appendix: Interview-Topics cheat-sheet kit
 
-*[← Chapter 9](interview-topics-chapter-9.md) · [Contents](interview-topics-README.md)*
+*[← Chapter 10](interview-topics-chapter-10.md) · [Contents](interview-topics-README.md)*
 
 The skim-the-morning-of reference for the whole track: a one-line concept per technology, a per-chapter glossary, and a full interview question bank. Each technology's "concept beneath the brand" is the thing to recall first — everything else hangs off it.
 
@@ -22,6 +22,7 @@ Use the companion [stack map](interview-topics-stack-map.md) when you need to in
 | Auth (JWT/OAuth2) | a verifiable token proving *who you are* + *what you may do* | [Foundations Ch 8](../Foundations/3-networking/ch8-networking.md) |
 | GCP / cloud | the same portable primitives under a brand name | [HLD](../HLD/hld-README.md) |
 | FastAPI | an async (ASGI) web framework: Pydantic validation + dependency injection | [LLD](../LLD/lld-README.md) |
+| Kubernetes / platform tooling | desired-state reconciliation and controlled, observable change | [HLD](../HLD/hld-README.md) |
 
 ---
 
@@ -106,6 +107,19 @@ Use the companion [stack map](interview-topics-stack-map.md) when you need to in
 - **lifespan / app factory** — startup/shutdown for client pools; factory keeps startup testable.
 - **BackgroundTasks vs queue** — in-process fire-and-forget vs a durable Celery/Pub/Sub worker.
 
+### Ch 10 — Platform engineering & production operations
+- **Container** — an isolated process created from an immutable image; it shares the host kernel and should run unprivileged.
+- **Kubernetes reconciliation** — controllers continuously move observed state toward declared desired state.
+- **Startup / readiness / liveness** — finished booting / should receive traffic / cannot recover without restart.
+- **Build once, promote many** — test, scan, sign, and publish one immutable digest; promote the same artifact through environments.
+- **IaC plan/state/drift** — preview change, map desired resources to reality, and reconcile out-of-band changes.
+- **Workload identity** — short-lived, scoped machine identity; preferable to distributing long-lived secret keys.
+- **OpenTelemetry** — vendor-neutral instrumentation and context propagation; a collector processes/exports, while a backend stores and queries.
+- **SLI / SLO / error budget** — measured behavior / reliability target / tolerated unreliability used for release-risk decisions.
+- **Progressive delivery** — rolling, blue/green, canary, and feature flags expose change in controlled increments with stop conditions.
+- **Expand/contract migration** — preserve old/new compatibility across mixed versions so rollback remains possible.
+- **Incident response** — declare, stabilize, diagnose, recover/verify, then learn through a blameless review and systemic actions.
+
 ---
 
 ## Interview question bank (by chapter)
@@ -182,6 +196,18 @@ Use the companion [stack map](interview-topics-stack-map.md) when you need to in
 5. `BackgroundTasks` vs a task queue — when is `BackgroundTasks` the wrong choice?
 6. What does the `lifespan` context manager do, and why an app factory?
 7. Give your honest-pivot answer for a Spring/Java vs FastAPI/Python mismatch.
+
+**Ch 10 — Platform engineering & production operations**
+1. Image vs container vs VM? What belongs in a production image, and what must stay out?
+2. Explain Pod, Deployment, Service, and reconciliation. How do requests/limits affect scheduling and runtime?
+3. Startup vs readiness vs liveness probes — what should a dependency outage fail, and why?
+4. Design a build-once/promote-many CI/CD path with supply-chain checks and production health gates.
+5. What does IaC state do? How do you review a plan for replacement, deletion, drift, and blast radius?
+6. How do workload identity and zero-downtime secret rotation reduce credential risk?
+7. OpenTelemetry vs an observability backend; metrics vs traces vs logs; SLI vs SLO vs error budget.
+8. Rolling vs blue/green vs canary; what are the stop conditions, and how do expand/contract database changes preserve rollback?
+9. Narrate the first 15 minutes of an incident: roles, mitigation, communication, verification, and evidence.
+10. Give an honest pivot between two platform brands without implying experience you do not have.
 
 ---
 

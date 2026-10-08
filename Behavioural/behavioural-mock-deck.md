@@ -549,6 +549,365 @@ Ask: "What option did you put on the table?" Next drill: answer again with exact
 
 ---
 
+## Card 11 — Remote and asynchronous collaboration
+
+### Candidate-facing prompt
+
+"Tell me about a time you kept a distributed team aligned without relying on meetings."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Communication. **Secondary signal:** Ownership / collaboration.
+
+Evidence counts when the candidate makes decisions, owners, deadlines, and unknowns visible; chooses
+what must be synchronous; creates a feedback window across time zones; and checks understanding
+instead of measuring activity or online presence.
+
+### Follow-up tree
+
+- "What did you document, and what deliberately stayed conversational?"
+- "How did someone in a different time zone challenge or change the decision?"
+- "What did you do when silence did not mean agreement?"
+- "How did you know the team was aligned rather than merely informed?"
+- "What would you change for a team with less shared context?"
+
+### Red flags to listen for
+
+- "remote people" are blamed for delay or low visibility;
+- more meetings, surveillance, or instant replies are the whole solution;
+- a decision document broadcasts a conclusion but offers no participation window;
+- no handoff, owner, decision record, or check for understanding;
+- accessibility, caregiving, and time-zone constraints are treated as lack of commitment.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Async communication | Relied on presence or meetings; people were surprised. | Wrote updates, but ownership, decision state, or feedback timing stayed unclear. | Used a durable decision/owner/status record, explicit response window, and focused sync for ambiguity or conflict. | Also designed equitable handoffs, measured understanding/outcomes, and changed the system from feedback. |
+| Collaboration | Information flowed one way. | Invited input without showing how it affected the work. | Created a real path for remote input and closed the loop. | Made participation safer across time zones, seniority, communication styles, or accessibility needs. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "Which sentence in the written artifact made the decision state unambiguous?" Next drill:
+retell as context → decision needed → async window → focused sync → recorded outcome.
+
+---
+
+## Card 12 — Cross-cultural collaboration
+
+### Candidate-facing prompt
+
+"Tell me about a time different cultural or communication norms caused friction on a team."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Collaboration / conflict. **Secondary signal:** Self-awareness.
+
+Evidence counts when the candidate describes behavior without stereotyping, questions their own
+interpretation, asks rather than diagnoses, adapts working agreements, and preserves each person's
+dignity and voice.
+
+### Follow-up tree
+
+- "What assumption did you initially make?"
+- "How did you learn what the other person intended?"
+- "What norm did the team agree to change?"
+- "How did you avoid asking one person to represent a whole culture?"
+- "What evidence showed the relationship or outcome improved?"
+
+### Red flags to listen for
+
+- national, ethnic, language, or personality stereotypes;
+- "I taught them how we work here" with no reciprocal adaptation;
+- interpreting accent, silence, directness, or deference as competence;
+- forcing public confrontation when a private channel was safer;
+- claiming cultural fluency from one interaction.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Cross-cultural judgment | Stereotypes or assigns intent. | Stays polite but expects only the other person to adapt. | Tests assumptions, asks respectfully, and agrees on observable working norms. | Also changes team mechanisms so multiple styles can contribute without assimilation. |
+| Self-awareness | Candidate is culturally neutral and others are the problem. | Names an assumption but no changed behavior. | Owns an interpretation error or blind spot and changes behavior. | Shows the learning transferred to later teams without overgeneralizing. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "Replace every label with an observable behavior—does the story still work?" Next drill:
+retell without naming nationality, personality type, or intent.
+
+---
+
+## Card 13 — Reorganization or major change
+
+### Candidate-facing prompt
+
+"Tell me about a reorganization or major direction change you had to navigate."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Ambiguity / adaptability. **Secondary signal:** Ownership / communication.
+
+Evidence counts when the candidate separates facts from rumors, acknowledges human impact, seeks
+clarity without waiting passively, protects critical work and handoffs, resets commitments, and
+helps others adapt without pretending certainty.
+
+### Follow-up tree
+
+- "What was known, unknown, and outside your control?"
+- "Which commitment did you renegotiate?"
+- "How did you support someone affected differently from you?"
+- "What knowledge or ownership would have been lost without your action?"
+- "What did you avoid saying because you could not know it yet?"
+
+### Red flags to listen for
+
+- badmouthing leaders or colleagues who left;
+- spreading speculation or presenting reassurance as fact;
+- treating concern, grief, or resistance as negativity;
+- "stayed positive" replaces concrete prioritization and continuity work;
+- disclosing confidential personnel information.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Adaptability | Froze, fueled rumor, or ignored impact. | Continued own tasks but did not reset assumptions or dependencies. | Clarified facts, reprioritized, preserved continuity, and communicated uncertainty honestly. | Also improved the transition system—ownership map, handoff, decision log, or feedback loop. |
+| Ownership | Waited for complete direction. | Helped when assigned. | Proactively protected a meaningful outcome within role boundaries. | Enabled others while avoiding promises or authority the candidate did not have. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "What did you know, what did you infer, and what did you refuse to speculate about?" State all
+three in under 30 seconds.
+
+---
+
+## Card 14 — Cross-team dependency at risk
+
+### Candidate-facing prompt
+
+"Tell me about a critical dependency on another team that put your delivery at risk."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Collaboration / ownership. **Secondary signal:** Prioritization.
+
+Evidence counts when the candidate establishes a shared outcome, learns the other team's constraints,
+defines an interface/owner/date, reduces coupling with a mock or fallback, escalates the risk rather
+than the people, and keeps stakeholders current.
+
+### Follow-up tree
+
+- "Why was the dependency necessary?"
+- "What pressure was the other team under?"
+- "What could your team decouple, sequence, mock, or cut?"
+- "When and how did you escalate?"
+- "How did you preserve the relationship after the immediate delivery?"
+
+### Red flags to listen for
+
+- the other team is lazy, incompetent, or a blocker;
+- escalation is surprise, status leverage, or blame;
+- no contract, acceptance criteria, owner, or due date;
+- candidate waits until the dependency is late;
+- heroically absorbs hidden work and creates a new unsafe dependency.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Cross-team collaboration | Blame or surprise escalation. | Asked repeatedly but did not create shared clarity or alternatives. | Aligned on outcome/contract, understood constraints, tracked risk, and escalated neutrally with options. | Also reduced future coupling or created a reusable planning/interface mechanism. |
+| Ownership / judgment | Treated the dependency as somebody else's problem. | Tracked it but had no mitigation. | Created a mock, fallback, sequencing, scope, or date option while keeping ownership honest. | Balanced delivery with the other team's capacity and long-term system health. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "State the escalation without a person's name or an accusation." Next drill: deliver problem,
+impact, options, recommendation, and decision needed in 45 seconds.
+
+---
+
+## Card 15 — Security or privacy risk
+
+### Candidate-facing prompt
+
+"Tell me about a time you discovered a security or privacy risk that complicated delivery."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Judgment / ownership. **Secondary signal:** Communication.
+
+Evidence counts when the candidate contains exposure, avoids copying sensitive data, uses the
+approved reporting path, involves security/privacy owners, distinguishes facts from severity
+guesses, proposes proportionate options, and verifies remediation and prevention.
+
+### Follow-up tree
+
+- "What did you do first, and what did you deliberately not do?"
+- "Who needed to know, under least-necessary disclosure?"
+- "How did you assess affected data, users, and blast radius?"
+- "What release choice did you recommend and why?"
+- "What systemic guardrail changed afterward?"
+
+### Red flags to listen for
+
+- exploits production further to prove the issue or copies real data into a ticket;
+- hides the issue to protect a deadline or reputation;
+- declares legal impact or severity without the responsible expert;
+- posts sensitive detail broadly, names a vulnerable person, or promises secrecy;
+- fixes one instance without rotation, audit, notification decision, or prevention.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Security/privacy judgment | Concealed, amplified, or improvised outside policy. | Reported the issue but evidence handling, scope, or ownership was weak. | Contained, reported through the right path, minimized sensitive handling, and partnered on risk-based remediation. | Also verified rotation/audit/user protection and installed a systemic preventive or detective control. |
+| Communication | Broadcast details or minimized uncertainty. | Status existed but audience or decision was unclear. | Used need-to-know facts, impact, uncertainty, owner, and next checkpoint. | Preserved auditability and stakeholder trust without speculating about legal conclusions. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "What evidence was necessary, and what sensitive detail was not?" Next drill: explain the risk
+to an executive without exposing an exploit path or personal data.
+
+---
+
+## Card 16 — Responsible AI tradeoff
+
+### Candidate-facing prompt
+
+"Tell me about a time you raised or handled a responsible-AI concern."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Judgment / ambiguity. **Secondary signal:** Ownership / collaboration.
+
+Evidence counts when the candidate names affected people and plausible harms, tests rather than
+asserts fairness/safety, documents data and model limits, adds human review and appeal where stakes
+require it, monitors segmented outcomes, and knows when not to automate.
+
+### Follow-up tree
+
+- "Who could be harmed, including people not represented in the room?"
+- "What evidence changed the release decision?"
+- "Which slices and failure modes did you evaluate?"
+- "Where did you require human review, refusal, explanation, or appeal?"
+- "What would make you disable or not build the feature?"
+
+### Red flags to listen for
+
+- "the model is objective" or one aggregate accuracy number ends the analysis;
+- protected or sensitive attributes are used casually or assumed removable without proxy effects;
+- demo quality is treated as production evidence;
+- hidden AI use, no consent/notice where expected, no human accountability, or no appeal;
+- responsible AI is reduced to prompt wording or a disclaimer.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Responsible-AI judgment | Ignores affected people or treats model output as truth. | Names risk but offers only disclaimer or vague manual review. | Defines harms, evaluates relevant slices/failures, sets boundaries and human accountability, and monitors outcomes. | Also changes the product/release decision, creates appeal/disable paths, and states a credible no-build condition. |
+| Ambiguity / ownership | Overclaims certainty or waits for perfect policy. | Escalates without framing evidence or options. | Makes uncertainty explicit, gets domain/legal/security input, and drives a reversible evidence-based next step. | Creates durable model/data documentation, ownership, and review triggers as conditions change. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "Name the person, harm, evidence, guardrail, and stop condition in one sentence each."
+
+---
+
+## Card 17 — Legal or compliance disagreement
+
+### Candidate-facing prompt
+
+"Tell me about a time you disagreed with legal, compliance, audit, or risk partners."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Collaboration / judgment. **Secondary signal:** Communication.
+
+Evidence counts when the candidate seeks the underlying obligation and risk, distinguishes a
+mandatory constraint from a preferred control, brings technical evidence and alternatives, records
+the accountable decision, and complies or escalates through governance rather than routing around it.
+
+### Follow-up tree
+
+- "What requirement or risk was the control trying to address?"
+- "Which part did you disagree with—the obligation, interpretation, or implementation?"
+- "What alternative control did you propose?"
+- "Who had decision authority, and where was the decision recorded?"
+- "What did you do after the final decision went against you?"
+
+### Red flags to listen for
+
+- frames partners as bureaucracy to defeat;
+- offers legal conclusions outside expertise;
+- ships first and seeks approval later;
+- "equivalent control" has no evidence, owner, monitoring, or expiry;
+- hides risk acceptance in chat or pressures an individual to waive policy.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Collaboration / judgment | Circumvented, attacked, or concealed. | Complied grudgingly or argued implementation without learning the obligation. | Clarified requirement/risk, proposed evidence-backed options, respected authority, and documented the decision. | Also found a reusable compliant path or improved the control without weakening the obligation. |
+| Communication | Advocacy was positional or jargon-heavy. | Shared technical facts but not business/risk tradeoffs. | Translated constraints both ways and made decision, owner, residual risk, and follow-up explicit. | Enabled principled disagreement while preserving trust and auditability. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Ask: "State the partner's strongest case before yours." Next drill: propose two compliant options,
+their residual risk, and the decision owner in 60 seconds.
+
+---
+
+## Card 18 — Refusing an unsafe shortcut
+
+### Candidate-facing prompt
+
+"Tell me about a time you were pressured to take a shortcut you believed was unsafe."
+
+### Interviewer-only target signal + what evidence counts
+
+**Target signal:** Integrity / judgment. **Secondary signal:** Ownership / communication.
+
+Evidence counts when the candidate names the concrete harm, refuses clearly and proportionately,
+offers the safest viable alternative, escalates through the right channel when needed, documents
+the decision, and supports delivery without becoming the sole silent gatekeeper.
+
+### Follow-up tree
+
+- "What made the shortcut unsafe rather than merely imperfect?"
+- "What was the minimum safe alternative?"
+- "How did you respond when pressure continued?"
+- "Who had authority to accept which risks, and which risks were non-waivable?"
+- "What would you do if your manager explicitly ordered it?"
+
+### Red flags to listen for
+
+- secretly complies, or refuses vaguely but leaves someone else to do it;
+- dramatizes normal technical debt as an ethical crisis;
+- says "security/legal said no" without owning the reasoning;
+- threatens, grandstands, leaks, or jumps outside escalation paths without imminent-harm reason;
+- offers no alternative, containment, documentation, or follow-up.
+
+### Per-answer scorecard
+
+| Dimension | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Integrity / judgment | Complied knowingly, concealed, or cannot name the harm. | Objected but was vague, purely positional, or offered no safe path. | Named evidence and harm, set a clear boundary, offered a safer option, and escalated/documented appropriately. | Also reduced future pressure with a guardrail, pre-approved emergency path, or clearer risk ownership. |
+| Ownership / communication | Passed the problem away or surprised stakeholders. | Raised concern late or only to one person. | Communicated early in decision language: risk, affected party, options, recommendation, authority needed. | Stayed constructive under pressure and verified the safe outcome after the decision. |
+| Communication / STAR | Use the baseline scorecard. |  |  |  |
+
+### Debrief + next drill
+
+Practice: "I cannot support X because it creates Y harm. I can support A now, or B with approval from
+Z. I am recording the risk and need a decision by T." Keep the facts specific and the tone calm.
+
+---
+
 ## The bumper sticker
 
 > *A mock is not a performance review of your personality. It is a signal drill: target signal, observable evidence, follow-up depth, STAR clarity, then session coverage. Score what was tested, mark the rest N/O, and drill the weakest signal next.*

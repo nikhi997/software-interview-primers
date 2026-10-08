@@ -10,10 +10,17 @@ The role split is four-way:
 - **The appendix looks up** complexity, signals, and practice lists.
 - **This waste map diagnoses** the gap between brute force and the right optimization.
 - **The cold drills retrieve** the whole ritual under time pressure.
+- **The optional advanced companion extends** the same ledger to specialist constraints after the
+  core track is fluent.
 
 Use one entry after each matching chapter, and again after every failed problem. Cover the headings after **Problem fragment** and force yourself to fill the ledger before reading the answer.
 
 One warning before the ledger: **one waste does not always imply one pattern.** A nested loop over pairs may become hashing, two pointers, sorting, or even DP depending on sortedness, space limits, and output requirements. Chapter 3's tradeoff is the model: unsorted + indices points one way; sorted + `O(1)` space points another.
+
+If an advanced loop asks for dynamic range queries, 0/1 edges, negative edges, all-pairs paths,
+mutual reachability, or minimum total connection cost, continue the same process in the
+[optional advanced companion](dsa-advanced-companion.md). The unfamiliar name is never permission
+to skip the baseline and its waste.
 
 ---
 

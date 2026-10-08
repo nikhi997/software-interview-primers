@@ -4,7 +4,7 @@
 
 Everything in the fifteen chapters, compressed into reference tables you can scan the night before an interview. Use this *after* you've read the chapters — these tables are reminders, not teachers.
 
-For active practice, pair this lookup sheet with the [Waste Map](dsa-waste-map.md) when you miss a pattern and the [Mixed Cold Drills](dsa-mixed-cold-drills.md) when you need unlabelled timed retrieval.
+For active practice, pair this lookup sheet with the [Waste Map](dsa-waste-map.md) when you miss a pattern and the [Mixed Cold Drills](dsa-mixed-cold-drills.md) when you need unlabelled timed retrieval. The [optional advanced companion](dsa-advanced-companion.md) covers specialist topics only after the core track is fluent; it is not part of the baseline interview curriculum.
 
 ---
 
@@ -124,6 +124,13 @@ A Blind-75 / NeetCode-style set, grouped so you practice **one pattern at a time
 
 **Ch 15 — Mixed / ritual practice**
 - Do a random mix from all the above on a timer, running full UMPIRE each time.
+
+**Optional advanced practice — only when your target loop needs it**
+- Sorting/selection; intervals/sweep lines/difference arrays; Fenwick/segment trees; MST, 0-1 BFS,
+  SCC, Bellman-Ford, and Floyd-Warshall are organized in the
+  [advanced companion](dsa-advanced-companion.md).
+- Keep the same gate: working baseline → exact waste → simplest patch → constraint that breaks it
+  → specialist tool. Do not trade core medium-problem fluency for rare-topic breadth.
 
 ---
 

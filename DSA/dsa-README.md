@@ -51,6 +51,11 @@ Read in sequence. Each chapter assumes the previous ones.
 
 **Appendix:** Complexity cheat sheet, the pattern→signal table, the curated problem list (what to solve and in what order), common pitfalls.
 
+**Optional advanced companion (after the core track):**
+[Sorting, intervals, range-query structures, and specialist graph algorithms](dsa-advanced-companion.md).
+It is **not required for all interviews**. Use it only after the core list is comfortable or when
+your target loop regularly asks these topics; it keeps the same waste-before-pattern rule.
+
 ## Runnable code
 
 A few chapters ship verified, runnable snippets in [code/](code) — run them with `python3`:
@@ -83,8 +88,11 @@ Use these as practice tools, not replacements for reps:
 
 - [Waste Map](dsa-waste-map.md) — use it after each chapter, and after any failed problem, to diagnose the exact wasted operation, the tempting patch, and the invariant that makes the final optimization valid.
 - [Mixed Cold Drills](dsa-mixed-cold-drills.md) — start from Chapter 5 onward, then use heavily after Chapter 15 for 30–35 minute unlabelled packets under interview pressure.
+- [Optional Advanced Companion](dsa-advanced-companion.md) — after Chapter 15 and the core reps, derive sorting/selection, interval/sweep/difference techniques, Fenwick/segment trees, and specialist graph algorithms from the precise constraint that earns them.
 
-The chapters teach, the appendix looks up, the waste map diagnoses, and the cold drills retrieve under time pressure. None of these replaces solving the appendix problems from scratch.
+The chapters teach, the appendix looks up, the waste map diagnoses, the cold drills retrieve under
+time pressure, and the optional companion extends the catalog only for advanced loops. None of
+these replaces solving the appendix problems from scratch.
 
 ## Checkpoints
 
