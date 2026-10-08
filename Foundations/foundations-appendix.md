@@ -1,8 +1,8 @@
 # Appendix: Foundations cheat-sheet kit
 
-*[← Chapter 14](5-bonus/ch14-git.md) · [Contents](foundations-README.md)*
+*[← Chapter 15](6-distributed-systems/ch15-when-one-machine-becomes-many.md) · [Contents](foundations-README.md)*
 
-The skim-the-morning-of reference for the whole track: a SQL cheat sheet, OS and networking vocabularies, the four-step answer framework, and a question bank by chapter. Pair it with the fast-review grid in [Chapter 12](4-putting-it-together/ch12-ritual.md), the causal flows in [mechanism maps](foundations-mechanism-maps.md), and the timed spoken cards in [60-second recall](foundations-60-second-recall.md).
+The skim-the-morning-of reference for the whole track: a SQL cheat sheet, OS, networking, and distributed-systems vocabularies, the four-step answer framework, and a question bank by chapter. Pair it with the fast-review grid in [Chapter 12](4-putting-it-together/ch12-ritual.md), the causal flows in [mechanism maps](foundations-mechanism-maps.md), and the timed spoken cards in [60-second recall](foundations-60-second-recall.md).
 
 ---
 
@@ -181,6 +181,30 @@ SELECT * FROM step2;
 
 ---
 
+## Distributed-systems vocabulary
+
+| Term | One-liner |
+|---|---|
+| **Partial failure** | Some machines or links fail while others keep running; silence cannot tell you whether work happened |
+| **Timeout / deadline** | Bound how long a caller waits; expiry is not proof the remote operation failed or stopped |
+| **Exponential backoff + jitter** | Space retries farther apart and randomize them so recovery does not trigger a synchronized retry storm |
+| **Idempotency key** | Stable ID for one logical operation; replay returns the first result instead of repeating the effect |
+| **Replication** | Keep data copies on multiple nodes; acknowledgement policy decides latency, loss window, and stale reads |
+| **Strong / eventual consistency** | Read the latest accepted write vs allow temporary staleness while copies converge |
+| **Causal / per-key ordering** | Preserve dependency or sequence within a useful scope without forcing one global order |
+| **Quorum** | Read/write sets overlap when `W + R > N`; versions still decide which overlapping value is newest |
+| **Consensus** | A majority protocol chooses one authority or ordered history despite failures; normally delegated to proven infrastructure |
+| **In-process lock** | Coordinates threads sharing one process; it cannot protect state written by another process or server |
+| **Compare-and-set / conditional write** | Store-enforced atomic update that succeeds only if the value/version still matches |
+| **At-most-once** | Work may be lost, but the delivery mechanism does not retry it |
+| **At-least-once** | Work is retried until acknowledged, so consumers must expect duplicates |
+| **Effectively once** | At-least-once delivery plus idempotent effect or transactional dedupe |
+| **Transactional outbox / inbox** | Atomically record state plus publish intent / atomically record consumer dedupe plus effect |
+| **Circuit breaker / bulkhead** | Stop calling a sick dependency / isolate its resources so failure does not cascade |
+| **RPO / RTO** | Maximum acceptable data-loss window / maximum acceptable recovery time |
+
+---
+
 ## Version-control (Git) vocabulary
 
 | Term | One-liner |
@@ -242,6 +266,19 @@ SELECT * FROM step2;
 - How do you undo a commit you already pushed, and why `revert` over `reset`?
 - What is a merge conflict, and why won't Git resolve it for you?
 - What does `git pull` actually do under the hood?
+
+**Ch 15 — When one machine becomes many**
+- Why is a timeout ambiguous, and why is it not the same as cancellation?
+- Which failures should be retried, and why do backoff, jitter, and a retry budget belong together?
+- How does an idempotency key prevent a retried payment from charging twice?
+- Compare asynchronous and synchronous replication. What do they imply for acknowledged data loss?
+- Strong, causal, read-your-own-writes, and eventual consistency — choose one for a concrete feature.
+- What does `W + R > N` buy, and what does it not solve?
+- Quorum vs consensus — what problem does each address?
+- Why can a mutex protect threads but not two app servers? Where should a cross-server invariant live?
+- At-most-once, at-least-once, and effectively-once delivery — where can work be lost or duplicated?
+- What does the outbox make atomic, and why can its relay still publish twice?
+- RPO vs RTO, and why is replication not a backup?
 
 **Ch 5 — Processes & threads**
 - Process vs thread? Why is shared memory the source of concurrency bugs?

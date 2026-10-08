@@ -135,6 +135,8 @@ We've made the system fast and well-behaved under bursts. But we've been quietly
 
 Next: we keep saying a write is "saved." Time to ask what that actually guarantees when a box dies — and meet CAP.
 
+After the core track, apply these queue semantics to outbox/inbox, replay, ordering, and DLQ decisions in the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md).
+
 ---
 
 <div align="right">

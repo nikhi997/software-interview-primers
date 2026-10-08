@@ -46,6 +46,8 @@ Read in sequence. Each chapter assumes the previous ones.
 
 **[Visual deepdive](hld-visual-deepdive.md):** all sixteen chapters retold as one continuous diagram-led story, where every diagram is the previous one plus a single move. Read it *after* the book — it's the companion for Session 2, when you're redrawing architectures from memory.
 
+**[Multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md):** nine focused production-design drills for deciding active-passive vs active-active, geo-routing and residency, outbox/inbox boundaries, ordering and replay, DLQs, RPO/RTO, and the security/cost bill. This is a companion, not Chapter 17: use it after the core book to defend decisions under changing constraints.
+
 ## Prerequisites
 
 You don't need LLD first, but it helps. You *do* need:
@@ -66,7 +68,7 @@ Open a blank page. From memory, redraw the architecture the chapter ended with �
 **Session 3 (30 min, day after):**
 Do the end-of-chapter exercises. Then explain the chapter to yourself in 4–5 sentences: what was the system, what was the bottleneck, what was the move, what new bottleneck did the move create. Only after this, move to the next chapter.
 
-Total: ~2.5 hours per chapter, over 3 days. 16 chapters → ~48 days of focused work. Don't compress. HLD intuition is built from *deriving* the same handful of moves over and over until they're automatic.
+Total: ~2.5 hours per chapter, over 3 days. 16 chapters → ~48 days of focused work. Don't compress. The companions ride alongside the review pass and do not change the chapter count. HLD intuition is built from *deriving* the same handful of moves over and over until they're automatic.
 
 ## Checkpoints
 

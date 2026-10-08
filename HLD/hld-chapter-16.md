@@ -143,6 +143,8 @@ The location firehose hits the in-memory geo-index (not the durable DB). Matchin
 ## Step 6: Bottlenecks & tradeoffs
 
 - **Next bottleneck:** hot regions (airport at rush hour) overload one geo-shard → finer geospatial partitioning, or dedicated capacity for hot cells (the hot-key problem yet again, now geographic).
+
+To turn geo-sharding into a full regional-failure, residency, and recovery decision, continue with the [multi-region and event-driven design drills](hld-multi-region-event-driven-drills.md). It is a companion, not Chapter 17.
 - **Tradeoffs made:** driver locations are **in-memory and not durable** (we chose speed + write throughput over durability — losing a location update is harmless, the next arrives in seconds). Matching is **strongly consistent** (CP) at the cost of a bit of latency, *only* for the claim step — everything else stays fast and loose. We accept location data is **approximate/slightly stale** (a driver's shown position is a few seconds old) — fine for matching and tracking.
 
 ---

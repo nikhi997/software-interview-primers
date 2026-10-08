@@ -14,6 +14,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── lld-appendix.md
 │   ├── lld-code-evolution.md       companion: one system, twenty requirement waves
 │   ├── lld-cold-rebuild-drills.md  companion: solution-free rebuild drills
+│   ├── lld-boundaries-and-testing.md companion: ports/adapters, contracts, and testing
 │   └── code/                  runnable Python (ch6.py, ch7.py, …)
 │
 ├── HLD/          High-Level Design — scaling, distributed systems, architecture
@@ -21,6 +22,7 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── hld-chapter-1.md … hld-chapter-16.md
 │   ├── hld-appendix.md
 │   ├── hld-visual-deepdive.md      companion: all 16 chapters as one diagram-led story
+│   ├── hld-multi-region-event-driven-drills.md companion: production design drills
 │   └── code/                  runnable Python (consistent_hashing, rate_limiter, estimate)
 │
 ├── DSA/          Data Structures & Algorithms — the coding round
@@ -47,9 +49,9 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │   ├── aiml-rebuild-labs.md        companion: fixture-first Session 2 labs
 │   └── code/                  runnable Python (gradient_descent, embeddings_similarity, rag_retrieval)
 │
-├── Foundations/  CS Fundamentals — SQL, databases, OS, networking (the pop-quiz round)
+├── Foundations/  CS Fundamentals — SQL, databases, OS, networking, distributed systems
 │   ├── foundations-README.md  start here for Foundations
-│   ├── 1-sql-and-databases/ … 5-bonus/   chapters, grouped by domain
+│   ├── 1-sql-and-databases/ … 6-distributed-systems/ chapters, grouped by domain
 │   ├── foundations-appendix.md
 │   ├── foundations-mechanism-maps.md   companion: causal flow maps per domain
 │   ├── foundations-60-second-recall.md companion: timed spoken answer skeletons

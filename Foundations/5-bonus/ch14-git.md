@@ -111,12 +111,12 @@ Answer aloud, as if to an interviewer:
 
 > *Git isn't a set of spells — it's a graph of immutable snapshots with movable pointers (branches) into it, and every command is just moving a pointer or adding a node. Learn that model and merge, rebase, reset, and "detached HEAD" stop being scary: you can always ask "where's HEAD, and am I rewriting shared history or just my own?"*
 
-That closes the Foundations track. The appendix pulls the whole thing together — a SQL cheat sheet, OS and networking vocabulary, and the full question bank by chapter.
+Next: one machine becomes many. A missing response stops meaning "the function failed," and we derive the mechanisms that make retries, copies, messages, and recovery safe.
 
 ---
 
 <div align="right">
 
-[Appendix →](../foundations-appendix.md)
+[Chapter 15 →](../6-distributed-systems/ch15-when-one-machine-becomes-many.md)
 
 </div>
