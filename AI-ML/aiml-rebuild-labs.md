@@ -4,7 +4,7 @@
 
 This is the active-practice companion to the AI/ML primer — provider-neutral, fixture-first, and meant to be opened during **Session 2** of each chapter's [study contract](aiml-README.md), right after you've read the chapter and before you move on. Where the chapter's own "Try it" section asks you to *explain* an idea, these labs ask you to **build something small enough to run in a minute and observe failing or passing on purpose.**
 
-Every lab reuses the same scenario as the [Model to Product](aiml-model-to-product.md) trace — Kestrel, a fictional cloud-storage company building a customer-support copilot — so the same tickets, policy pages, and tools show up across chapters instead of a new toy problem every time. That's deliberate: by Chapter 18 you'll have touched every piece of one real system, not eighteen disconnected snippets.
+Every lab reuses the same scenario as the [Model to Product](aiml-model-to-product.md) trace — Kestrel, a fictional cloud-storage company building a customer-support copilot — so the same tickets, policy pages, and tools show up across chapters instead of a new toy problem every time. That's deliberate: by Chapter 19 you'll have touched every piece of one real system, not nineteen disconnected snippets.
 
 **What this is not:** a set of Q&A worksheets. There are no "correct answers" to check against — every lab has an **observable acceptance criterion** (a number, a pass/fail check, a specific failure you must reproduce) that you verify by running code, not by comparing prose to a key. The existing `code/aiml-chapter-N-tryit.md` files are a different thing — reflection worksheets for the chapter's own discussion questions — not a substitute for the hands-on work here.
 
@@ -765,9 +765,65 @@ def run_full_regression() -> dict:
 
 ---
 
+## Lab 19 ([Chapter 19](aiml-chapter-19.md)) — Context manifest, scoped memory, compaction, and crash-safe resume
+
+**Goal:** turn the Kestrel pipeline into a durable three-step workflow whose model calls receive an inspectable context manifest, whose memory writes follow explicit rules, and whose email side effect cannot duplicate even if the process crashes after the provider accepted it.
+
+**Inputs:** 8 synthetic workflow events: a project name, one explicit user preference, one model inference that must *not* become memory, a legal-contact prohibition, an approved project-name correction, two retrieved policy versions (one stale), and one untrusted attachment containing an instruction. Add a ninth, cross-tenant event as an authorization test. Reuse a fixture `send_email` tool, but make the provider persist idempotency keys, payload fingerprints, and receipts separately from workflow checkpoints. Its deduplication and simulated send must commit atomically; reject a reused key with a different payload.
+
+**Starter interface:**
+```python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class ContextItem:
+    kind: str              # instruction, workflow_state, memory, evidence, tool_result, untrusted
+    value: str
+    source_id: str
+    source_version: int
+    tenant_id: str
+    created_at: str
+    trust: str
+
+def eligible_memory_write(event: dict) -> bool:
+    """True only for explicit user choices, verified tool facts, approved
+    decisions, and completed-action receipts — never a model inference."""
+    ...
+
+def build_context_manifest(goal: str, principal: dict, items: list[ContextItem],
+                           token_budget: int) -> dict:
+    """Authorize, resolve stale/conflicting items, preserve active invariants,
+    and return selected items plus rejected-item reasons and source versions."""
+    ...
+
+def compact_history(events: list[dict], active_invariants: list[str]) -> dict:
+    """Return {'summary': str, 'preserved_invariants': list,
+    'source_event_ids': list, 'version': int}."""
+    ...
+
+def run_workflow(job: dict, checkpoint_store: dict, email_provider) -> dict:
+    """Resume the explicit draft -> await_approval -> send -> sent state machine.
+    The send step uses a stable idempotency key and persists the provider receipt."""
+    ...
+```
+
+**Deliverables:** a manifest printed for each workflow step, including source/version/scope for every selected item; a memory table showing which of the 9 events were accepted or rejected and why; one compacted summary with its invariants and raw source-event IDs; a checkpoint record after each state transition; two executions of the same approved send using the same idempotency key. Recreate the workflow worker after the simulated crash from persistent records, not from its original in-memory objects.
+
+**Acceptance / regression criteria:** the manifest must select the current approved policy, exclude the stale conflicting policy and cross-tenant/untrusted instructions from privileged fields, and preserve the legal prohibition until an authorized approval exists. Under a sufficient budget it must include every active invariant; if the required items cannot fit, it must raise an explicit budget error rather than omit a constraint. Use a documented deterministic token-count fixture here, not a claim about a real tokenizer. `eligible_memory_write` must reject the model's inferred preference. Compaction must preserve the legal-contact prohibition exactly and retain source IDs. Simulate a crash immediately after `email_provider` commits the send but before `run_workflow` advances to `sent`; after recreating the worker and resuming, there must still be exactly one provider send and one stable receipt. Changing recipient, body hash, or evidence after approval must invalidate the approval and return the workflow to `await_approval` before execution.
+
+**Failure to cause:** first implement resume by blindly repeating the send without an idempotency key and show the provider contains two messages. Then add the stable key/receipt lookup, repeat the same crash, and show it contains one. Separately, run compaction without `active_invariants` and show the legal prohibition disappears; restore the invariant check and make the regression pass.
+
+**Reflection:** for each fact in the final context manifest, name its authority, freshness rule, and deletion path. Which item was most tempting to remember but correctly rejected, and which transition would be most dangerous to let the model choose?
+
+**Optional extension:** add context-recall and context-precision scoring over three fixture scenarios, then inject one missing required fact and one irrelevant page to prove the two metrics fail for different reasons.
+
+**Boundary check:** replace the provider with one that cannot deduplicate or report an operation's status. After a timeout, the workflow must enter an `unknown` state for manual reconciliation, not auto-retry. A fixture passing the earlier test does not guarantee that an arbitrary real email API supports the same contract.
+
+---
+
 ## The bumper sticker
 
-> *Eighteen labs, one running system, and not one of them required an API key to pass. Fixtures aren't a compromise — they're how you prove your contracts are right before you spend a single real token on them. When you're ready for the real model, the adapter is already waiting; that's the whole point of building the seam first.*
+> *Nineteen labs, one running system, and not one of them required an API key to pass. Fixtures aren't a compromise — they're how you prove your contracts, context, and recovery path are right before you spend a single real token on them. When you're ready for the real model, the adapter is already waiting; that's the whole point of building the seam first.*
 
 ---
 

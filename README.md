@@ -43,9 +43,9 @@ New here? Read the [Preface](PREFACE.md) first — why these exist, who they're 
 │
 ├── AI-ML/        AI & Machine Learning — the future-proofing track
 │   ├── aiml-README.md         start here for AI/ML
-│   ├── aiml-chapter-1.md … aiml-chapter-18.md
+│   ├── aiml-chapter-1.md … aiml-chapter-19.md
 │   ├── aiml-appendix.md
-│   ├── aiml-model-to-product.md    companion: one product traced across 18 chapters
+│   ├── aiml-model-to-product.md    companion: one product traced across 19 chapters
 │   ├── aiml-rebuild-labs.md        companion: fixture-first Session 2 labs
 │   └── code/                  runnable Python (gradient_descent, embeddings_similarity, rag_retrieval)
 │
@@ -94,14 +94,14 @@ Read a track's chapters first. The companions are worth little until you have so
 | Core principle | Feel the pain before naming the pattern | Feel the bottleneck before reaching for the component | Feel the brute force before reaching for the pattern | Hear the signal before telling the story | Feel the data before reaching for the model | Feel the mechanism before trusting the abstraction | Feel the concept beneath the brand name |
 | Unit of thought | Classes, responsibilities | Servers, data stores, network | Patterns over arrays, trees, graphs | Stories, signals | Data, models, LLMs | Queries, threads, packets | Named technologies (Spring, Kafka, Redis…) |
 | Interview round | "Design the classes for X" (45 min) | "Design X at scale" (45 min) | "Solve this on the whiteboard" (45 min) | "Tell me about a time..." (45 min) | "Design an AI feature / explain a concept" (45 min) | "Pop-quiz: what's an index? TCP or UDP?" (rapid-fire) | "Have you used Kafka / Redis / Spring?" (woven through screens) |
-| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 18 ch + appendix | 14 ch + appendix | 10 ch + appendix |
+| Length | 20 ch + appendix | 16 ch + appendix | 15 ch + appendix | 10 ch + appendix | 19 ch + appendix | 15 ch + appendix | 10 ch + appendix |
 | Start here | [LLD/lld-README.md](LLD/lld-README.md) | [HLD/hld-README.md](HLD/hld-README.md) | [DSA/dsa-README.md](DSA/dsa-README.md) | [Behavioural/behavioural-README.md](Behavioural/behavioural-README.md) | [AI-ML/aiml-README.md](AI-ML/aiml-README.md) | [Foundations/foundations-README.md](Foundations/foundations-README.md) | [Interview-Topics/interview-topics-README.md](Interview-Topics/interview-topics-README.md) |
 
-The first four are the classic loop: almost every software interview is some mix of a coding round (DSA), one or two design rounds (LLD and/or HLD), and a behavioural round. **AI/ML** is the future-proofing track — the one the market is increasingly adding as "AI Engineer" becomes a mainstream title and ordinary postings start listing "experience integrating LLMs." **Foundations** is the breadth track: the rapid-fire CS fundamentals (SQL, databases, OS, networking) that surface as screening questions and woven into other rounds — a "pick the chapters your role needs" reference rather than a strict read-through. **Interview-Topics** is the named-technology layer: the brands a JD lists by name (Java, Spring Boot, Postgres, Kafka, Redis, GCP, FastAPI, Kubernetes, Terraform) and the "have you used X?" questions, each pointing down to the concept tracks for the *why*. Prepare them all and very little can surprise you.
+The first four are the classic loop: almost every software interview is some mix of a coding round (DSA), one or two design rounds (LLD and/or HLD), and a behavioural round. **AI/ML** is the future-proofing track for roles that build or operate AI-backed features — from model fundamentals through RAG, agents, evaluation, multimodal systems, context, and durable workflows. **Foundations** is the breadth track: the rapid-fire CS fundamentals (SQL, databases, OS, networking, distributed systems) that surface as screening questions and woven into other rounds — a "pick the chapters your role needs" reference rather than a strict read-through. **Interview-Topics** is the named-technology layer: the brands a JD lists by name (Java, Spring Boot, Postgres, Kafka, Redis, GCP, FastAPI, Kubernetes, Terraform) and the "have you used X?" questions, each pointing down to the concept tracks for the *why*. Prepare them all and very little can surprise you.
 
 ## The one shared idea
 
-Read the six core principles in the table again — they're the same sentence six times. *Understand what's actually being asked before you reach for the answer.* In code, that's the brute force before the pattern. In systems, the bottleneck before the component. In classes, the pain before the pattern. In the behavioural room, the hidden signal before the story. In AI, the data before the model. In fundamentals, the mechanism before the abstraction. And with named technologies, the concept beneath the brand. The habit transfers; that's why these belong together.
+Read the seven core principles in the table again — they're the same sentence seven times. *Understand what's actually being asked before you reach for the answer.* In code, that's the brute force before the pattern. In systems, the bottleneck before the component. In classes, the pain before the pattern. In the behavioural room, the hidden signal before the story. In AI, the data before the model. In fundamentals, the mechanism before the abstraction. And with named technologies, the concept beneath the brand. The habit transfers; that's why these belong together.
 
 ## Which one first?
 
@@ -150,6 +150,19 @@ All seven tracks share one non-negotiable rule: **each chapter is a few short se
 Seven tracks, one habit: understand what's actually being asked before you reach for the answer. That's the whole game.
 
 ---
+
+## Contributing and validation
+
+Keep the teaching sequence intact: simplest working approach, specific failure, then the smallest justified fix. Read adjacent chapters and update navigation, appendices, and companions alongside the content.
+
+Before opening a pull request, run:
+
+```bash
+python3 scripts/validate_content.py
+python3 -m unittest discover -s scripts -p 'test_*.py'
+```
+
+The validator checks expected chapter files, chapter counts in the track READMEs and the table above, local Markdown link targets, and Python syntax. When adding a chapter, update the expected coverage in `scripts/validate_content.py` as well as the reading order. These checks do not run examples, validate heading anchors, or verify external links and technical claims; review those separately. The same commands run in GitHub Actions.
 
 ## Further reading and attribution
 

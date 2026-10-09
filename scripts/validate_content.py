@@ -12,13 +12,13 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 
 NUMBERED_TRACKS = {
-    "AI-ML": ("AI-ML/aiml-chapter-{number}.md", 18),
+    "AI-ML": ("AI-ML/aiml-chapter-{number}.md", 19),
     "DSA": ("DSA/dsa-chapter-{number}.md", 15),
     "HLD": ("HLD/hld-chapter-{number}.md", 16),
     "LLD": ("LLD/lld-chapter-{number}.md", 20),
     "Interview-Topics": (
         "Interview-Topics/interview-topics-chapter-{number}.md",
-        9,
+        10,
     ),
     "Behavioural": (
         "Behavioural/chapter-{number:02d}/behavioural-chapter-{number}.md",
@@ -41,6 +41,17 @@ FOUNDATIONS_CHAPTERS = {
     12: "Foundations/4-putting-it-together/ch12-ritual.md",
     13: "Foundations/5-bonus/ch13-data-teams.md",
     14: "Foundations/5-bonus/ch14-git.md",
+    15: "Foundations/6-distributed-systems/ch15-when-one-machine-becomes-many.md",
+}
+
+TRACK_READMES = {
+    "LLD": "LLD/lld-README.md",
+    "HLD": "HLD/hld-README.md",
+    "DSA": "DSA/dsa-README.md",
+    "Behavioural": "Behavioural/behavioural-README.md",
+    "AI-ML": "AI-ML/aiml-README.md",
+    "Foundations": "Foundations/foundations-README.md",
+    "Interview-Topics": "Interview-Topics/interview-topics-README.md",
 }
 
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*]\(([^)]+)\)")
@@ -78,6 +89,47 @@ def local_link_target(markdown_file: Path, raw_target: str) -> Path | None:
         return None
 
     return (markdown_file.parent / target).resolve()
+
+
+def validate_chapter_counts() -> list[str]:
+    errors: list[str] = []
+    expected_counts = {
+        track: count for track, (_, count) in NUMBERED_TRACKS.items()
+    }
+    expected_counts["Foundations"] = len(FOUNDATIONS_CHAPTERS)
+
+    for track, relative_path in TRACK_READMES.items():
+        readme = ROOT / relative_path
+        if not readme.is_file():
+            errors.append(f"{track}: missing track README: {relative_path}")
+            continue
+        match = re.search(
+            r"\b[Aa]n? (\d+)-chapter primer\b", readme.read_text(encoding="utf-8")
+        )
+        if match is None or int(match.group(1)) != expected_counts[track]:
+            errors.append(
+                f"{relative_path}: expected a {expected_counts[track]}-chapter "
+                "primer declaration"
+            )
+
+    root_readme = ROOT / "README.md"
+    if not root_readme.is_file():
+        errors.append("missing root README.md")
+        return errors
+    count_row = next(
+        (
+            line
+            for line in root_readme.read_text(encoding="utf-8").splitlines()
+            if line.startswith("| Length |")
+        ),
+        "",
+    )
+    actual = [int(value) for value in re.findall(r"\b(\d+) ch\b", count_row)]
+    expected = [expected_counts[track] for track in TRACK_READMES]
+    if actual != expected:
+        errors.append(f"README.md: chapter counts {actual} should be {expected}")
+
+    return errors
 
 
 def validate_markdown_links() -> list[str]:
@@ -121,6 +173,7 @@ def validate_python_syntax() -> list[str]:
 def main() -> int:
     checks = (
         ("chapter structure", validate_chapters),
+        ("chapter counts", validate_chapter_counts),
         ("local Markdown links", validate_markdown_links),
         ("Python syntax", validate_python_syntax),
     )

@@ -4,7 +4,7 @@
 
 - [ ] **Mark as read**
 
-You've built the whole stack of understanding — from "ML learns a function" to "here's how I'd ship and operate a RAG-plus-agent system under guardrails." This final chapter does two jobs. First, it gives you a **ritual** for AI/ML interview questions, the way the other tracks gave you UMPIRE, STAR, and the design frameworks — a repeatable way to turn a vague question into a strong answer. Second, it maps the **new roles** so you can aim your preparation at the job you actually want, and offers a few words on staying future-proof in a field that reinvents itself yearly.
+You've built the whole stack of understanding — from "ML learns a function" to "here's how I'd ship and operate a RAG-plus-agent system under guardrails." This chapter does two jobs. First, it gives you a **ritual** for AI/ML interview questions, the way the other tracks gave you UMPIRE, STAR, and the design frameworks — a repeatable way to turn a vague question into a strong answer. Second, it maps the **new roles** so you can aim your preparation at the job you actually want, and offers a few words on staying future-proof in a field that reinvents itself yearly. Chapter 19 then adds the final production layer: assembling context, retaining memory, and resuming workflows reliably across many calls.
 
 ---
 
@@ -29,8 +29,8 @@ Depending on the role, you'll hit some mix of these. Know which your target role
 > 💡 **Concept notes — the question families**
 > - **Concept checks:** "Explain overfitting / embeddings / attention / RLHF / RAG vs fine-tuning." Direct recall of the fundamentals in this book. Be able to explain each *simply* — explaining clearly is itself the signal.
 > - **ML system design:** "Design a recommendation / fraud / search / Q&A-over-docs system." The big one for ML and AI engineers — use DRESS. Cover data, model choice, serving, evaluation, monitoring.
-> - **LLM/GenAI applied:** "Build a chatbot over our knowledge base," "reduce hallucination," "make this agent reliable." The fastest-growing family — Chapters 9–17 are your script, including the multimodal twist (vision, speech, image generation) when the product handles more than text.
-> - **Coding:** data manipulation, sometimes implementing a simple model or a retrieval/similarity function, increasingly "build a small LLM-powered feature with an API." (Your DSA track covers the algorithmic side.)
+> - **LLM/GenAI applied:** "Build a chatbot over our knowledge base," "reduce hallucination," "make this agent reliable." Chapters 9–17 and 19 are your script, including the multimodal twist (vision, speech, image generation) when the product handles more than text.
+> - **Coding:** data manipulation, sometimes implementing a simple model or a retrieval/similarity function, or building a small model-backed feature behind an adapter. (Your DSA track covers the algorithmic side.)
 > - **Behavioral & judgment:** "Tell me about an ML project," plus responsibility questions — bias, safety, when *not* to use AI. (Your Behavioural track applies directly; the AI twist is showing maturity about *harm*, not just accuracy.)
 
 ---
@@ -40,12 +40,12 @@ Depending on the role, you'll hit some mix of these. Know which your target role
 "AI/ML" is not one job. The titles overlap and shift, but here's the durable shape of the landscape so you can aim your prep:
 
 > 💡 **Concept notes — the five role archetypes**
-> - **AI Engineer / GenAI Engineer** *(the fastest-growing, and what much of Part 3 prepares you for)*: builds applications *on top of* existing models — RAG systems, agents, LLM features, prompt pipelines. Strong **software engineering** + applied LLM skills (prompting, RAG, tools, evals, shipping). Usually does **not** train models from scratch. If you're a software engineer adding AI, this is your most natural target.
+> - **AI Engineer / GenAI Engineer** *(what much of Part 3 and Chapter 19 prepare you for)*: builds applications *on top of* existing models — RAG systems, agents, LLM features, prompt pipelines, context and workflow infrastructure. Strong **software engineering** + applied LLM skills (prompting, RAG, tools, evals, shipping). Usually does **not** train models from scratch. If you're a software engineer adding AI, this is a natural target.
 > - **Machine Learning Engineer (MLE)**: builds and deploys ML *models* in production — training pipelines, feature engineering, serving, scaling, monitoring. Solid software engineering + classic ML depth (Parts 1–2) + MLOps. The bridge between data science and production systems.
 > - **Data Scientist**: focuses on extracting insight from data — analysis, experimentation (A/B tests), statistics, and often classic modeling. Heavier on stats and communication, lighter on production engineering. More analysis than shipping.
 > - **MLOps / ML Platform Engineer**: builds the *infrastructure* that trains, deploys, monitors, and scales models — pipelines, serving, observability, the LLMOps layer (Ch 14). Heavy software/infra, lighter on modeling itself.
 > - **Research Scientist / ML Researcher**: invents new models and methods. Deep math, usually a PhD, publishes papers. Creates the techniques the other roles *use*. The smallest and most specialized slice.
-> Two practical truths: (1) the **AI Engineer** path has the lowest barrier for an existing software engineer and the most open roles right now — Part 3 is its core curriculum; (2) the lines blur and titles vary by company, so read the *responsibilities*, not just the title.
+> Two practical truths: (1) the **AI Engineer** path builds directly on an existing software engineer's strengths — Part 3 and Chapter 19 are its core curriculum; (2) the lines blur and titles vary by company, so read the *responsibilities*, not just the title.
 
 ---
 
@@ -58,7 +58,7 @@ The honest meta-skill, and the reason this track is built the way it is:
 
 ---
 
-## The final checkpoint — the whole track in one breath
+## Checkpoint — the whole track so far in one breath
 
 If you can give this answer cold, you're ready:
 
@@ -84,12 +84,12 @@ That's not memorization — it's the through-line you now actually understand. W
 
 > *Every AI/ML interview rewards the same move: DRESS the problem — Data first, Rule out over-engineering, Estimate the approach, Ship it, Score it. Aim at the role whose responsibilities fit you, master the durable concepts over the churning tools, and the field stops being intimidating and becomes yours to build in.*
 
-That's the track. The appendix that follows is your reference shelf — a glossary, the roles map at a glance, a tools landscape, projects to prove your skills, and an interview question bank. Use it to review, and revisit any chapter whose bumper sticker you can't yet say in your own words.
+One production question remains: how does a system stay coherent across a long task when its context grows, memories conflict, approvals wait, and processes retry? Chapter 19 turns those failures into an explicit context and workflow design.
 
 ---
 
 <div align="right">
 
-[Appendix →](aiml-appendix.md)
+[Chapter 19 →](aiml-chapter-19.md)
 
 </div>

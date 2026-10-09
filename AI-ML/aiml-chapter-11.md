@@ -4,7 +4,7 @@
 
 - [ ] **Mark as read**
 
-Two limits from Chapter 9 block most real LLM products: the model **doesn't know your private/internal data**, and it **hallucinates** when it doesn't know something. Fine-tuning a model on your data is expensive, slow to update, and *still* doesn't guarantee truthfulness. There's a far better, cheaper, and now-standard answer: **don't bake the knowledge into the model — fetch the relevant facts at question time and put them in the prompt.** That technique is **RAG (Retrieval-Augmented Generation)**, and it's probably the single most important architecture in applied GenAI today. If you build one AI feature in your career, it's likely a RAG system.
+Two limits from Chapter 9 block many real LLM products: the model **doesn't know your private/internal data**, and it **hallucinates** when it doesn't know something. Fine-tuning a model on your data is expensive, slow to update, and *still* doesn't guarantee truthfulness. A more direct answer is: **don't bake changing knowledge into the model — fetch the relevant facts at question time and put them in the prompt.** That technique is **RAG (Retrieval-Augmented Generation)**, and it is a core architecture to understand for applied GenAI.
 
 ---
 
@@ -24,7 +24,7 @@ It's the embeddings machinery from Chapter 7, applied. Two stages — one offlin
 **Offline (indexing), done once and updated as documents change:**
 
 > 💡 **Concept notes — chunking and indexing**
-> 1. **Chunk** your documents into passages — a whole 50-page manual won't fit the context window and retrieving it would be wasteful, so split it into pieces (paragraphs, sections). **Chunking** — choosing how to split — matters a lot: too big and you retrieve irrelevant filler and blow your token budget; too small and you sever the context that makes a passage meaningful. Sensible chunks with a little overlap are a real tuning knob.
+> 1. **Chunk** your documents into passages — retrieving a whole manual can be wasteful even when it fits the context window, so split it into pieces (paragraphs, sections). **Chunking** — choosing how to split — matters a lot: too big and you retrieve irrelevant filler and blow your token budget; too small and you sever the context that makes a passage meaningful. Sensible chunks with a little overlap are a real tuning knob.
 > 2. **Embed** each chunk into a vector (Chapter 7).
 > 3. **Store** the vectors in a **vector database** (Chapter 7) alongside the original text.
 
@@ -68,6 +68,22 @@ Don't oversell it in an interview — show you know the failure modes:
 
 ---
 
+## Long context, RAG, or a structured tool?
+
+A larger context window makes it tempting to skip retrieval and paste in everything. That can be the right move for one bounded artifact — a contract, a short repository, a meeting transcript — but capacity is not relevance. More text still costs tokens, increases latency, expands the injection surface, and can bury the decisive sentence in noise. **"It fits" is not the same as "the model will use the right part reliably."**
+
+> 💡 **Concept notes — choose by the shape of the source**
+> - **Long context:** use when the source set is small, bounded, and needed together — compare two documents, summarize one thread, review a compact code change. Preserve structure and ask for cited locations; evaluate whether important details survive at different positions.
+> - **RAG:** use when the corpus is large, changes independently, needs access filtering, or should return only the few relevant passages. Retrieval gives you freshness, citations, and a measurable relevance stage.
+> - **Structured tools:** use when the answer lives in authoritative, typed state — an order status, account balance, inventory count, current timestamp. Call the system of record instead of retrieving prose that describes it. Validate arguments and permissions as Chapter 12 describes.
+> They combine naturally: retrieve policy, call a scoped order tool, then give both results to the model in a deliberately assembled context. Chapter 19 names that assembly discipline **context engineering**.
+
+The senior question is not "what is the largest context window I can buy?" It is **"which minimum evidence does this decision require, where is the authority for each fact, and how will I know the model used it?"**
+
+For a provider-specific example, Google's [long-context documentation](https://ai.google.dev/gemini-api/docs/long-context) discusses direct context alongside retrieval and filtering (reviewed 2026-10-09). Model limits and pricing change; this decision guide does not depend on a particular token limit.
+
+---
+
 ## Improving retrieval: BM25, hybrid + RRF, and reranking
 
 The failure-modes note ends on the practitioner's truth — *most RAG improvement work is retrieval work.* So what does that work actually look like? Three techniques do most of the heavy lifting, and naming them is what separates "I'd add RAG" from "I'd build retrieval that works." This is the single most common follow-up to a RAG design question: **"the right chunk isn't being retrieved — how do you fix it?"**
@@ -96,6 +112,7 @@ The failure-modes note ends on the practitioner's truth — *most RAG improvemen
 7. A user searches for the exact error code `ECONNREFUSED` and your embedding-only retrieval misses the doc that explains it. Which technique fixes this, and why does it succeed where embeddings failed?
 8. You're combining BM25 and embedding results but can't just add their scores. What is RRF, and how does it merge the two lists?
 9. What is a cross-encoder reranker, why is it more accurate than the initial retrieval, and why can't you just use it for the whole corpus?
+10. A policy manual fits inside the model's context window, while live order status is in a database. Which parts belong in long context, RAG, and a structured tool — and why?
 
 
 ---

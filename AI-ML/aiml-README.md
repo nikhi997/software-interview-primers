@@ -1,14 +1,14 @@
 # AI/ML Primer — Reading order and study contract
 
-A 18-chapter primer on the AI and machine learning every software engineer now needs — written in the conversational style of the LLD, HLD, DSA, and Behavioural primers in this collection. Built around a single principle: *feel the data before reaching for the model.*
+A 19-chapter primer on the AI and machine learning every software engineer now needs — written in the conversational style of the LLD, HLD, DSA, and Behavioural primers in this collection. Built around a single principle: *feel the data before reaching for the model.*
 
 This is the future-proofing track. The other four prepare you for the interview loop as it has been for a decade. This one prepares you for where the loop — and the job — is *going*: a world where "can you wire an LLM into a product, ground it in real data, and know when it's lying?" is becoming as standard a question as "reverse a linked list."
 
 ## Why this track exists now
 
-Two things happened at once. First, **AI stopped being a specialist niche.** You no longer need a PhD and a GPU cluster to build something real — a few API calls put a frontier model in your app this afternoon. That collapsed the barrier, and the industry noticed: "AI Engineer" went from a rare title to one of the fastest-growing roles, and ordinary backend/full-stack postings now list "experience integrating LLMs" as a plain requirement.
+Two things happened at once. First, **building AI-backed product features stopped being confined to model-research teams.** You no longer need to train a foundation model to build something useful — hosted and open-weight models let software teams work at the application layer, where familiar engineering skills still matter.
 
-Second, **the interview adapted.** Even non-AI roles increasingly probe whether you understand embeddings, RAG, hallucination, and the cost/latency tradeoffs of shipping AI features. Not because every job is an ML job, but because *every* product is sprouting AI features and teams need engineers who won't treat the model as magic.
+Second, **interviews for AI-facing software roles test more than model vocabulary.** They probe whether you understand embeddings, RAG, hallucination, and the cost/latency/reliability tradeoffs of shipping AI features. Not every job is an ML job; this track prepares you for the ones where a model is one component in a real product.
 
 This primer makes you that engineer: fluent in the fundamentals so you're not faking it, and fluent in the applied GenAI layer so you can actually build.
 
@@ -59,14 +59,17 @@ Read in sequence. Each chapter assumes the previous ones.
 - Chapter 16: When every token has a price tag *(cost estimation, right-sizing, routing, caching)*
 - Chapter 17: Beyond text — multimodal models *(shared embeddings/CLIP, vision-language models, ASR/speech, image generation)*
 
-**Part 4 — Interview and future-proofing**
+**Part 4 — Interview and long-running systems**
 - Chapter 18: The AI/ML interview ritual + the roles map *(how it's asked, and how to stay future-proof)*
+- Chapter 19: Context engineering, memory, and reliable AI workflows *(selecting state, durable memory, checkpoints, idempotency, recovery)*
 
 **Appendix:** Glossary of every term, the roles map (AI Engineer vs ML Engineer vs Data Scientist vs MLOps vs Research), the tools landscape, a project list to build proof, and an interview question bank.
 
-**[Rebuild labs](aiml-rebuild-labs.md):** an 18-lab active workbook, one lab per chapter, all built around a single running scenario. Use it *during* Session 2 of each chapter, not after the book.
+**[Rebuild labs](aiml-rebuild-labs.md):** a 19-lab active workbook, one lab per chapter, all built around a single running scenario. Use it *during* Session 2 of each chapter, not after the book.
 
-**[Model to Product](aiml-model-to-product.md):** all 18 chapters retold as one continuous product build — the same customer-support copilot, evolving decision by decision from a rules engine to a fully guarded, evaluated, multimodal system. Read it *after* Chapter 18, when you're ready to see the whole shape at once.
+**[Model to Product](aiml-model-to-product.md):** all 19 chapters retold as one continuous product build — the same customer-support copilot, evolving decision by decision from a rules engine to a guarded, evaluated, multimodal, recoverable system. Read it *after* Chapter 19, when you're ready to see the whole shape at once.
+
+For Chapter 19's retry and coordination mechanisms, [Foundations Chapter 15](../Foundations/6-distributed-systems/ch15-when-one-machine-becomes-many.md) is a useful companion. You do not need a distributed workflow framework to complete the fixture-based lab.
 
 ## Runnable code
 
@@ -80,10 +83,10 @@ These three are **concept demos** — each one isolates a single idea so you can
 
 ## Companions
 
-Two more documents sit alongside the eighteen chapters and the appendix. They're not chapters — nothing in the reading order depends on them — but they're where the book stops being something you read and starts being something you've built.
+Two more documents sit alongside the nineteen chapters and the appendix. They're not chapters — nothing in the reading order depends on them — but they're where the book stops being something you read and starts being something you've built.
 
 - **[Rebuild labs](aiml-rebuild-labs.md)** is the Session 2 workbook. Where a chapter's own "Try it" section asks you to explain an idea, each lab asks you to build a small, runnable piece of it — with an observable acceptance criterion, not a worksheet answer — and to deliberately reproduce the chapter's failure mode before fixing it. Open the matching lab right after you finish a chapter's Session 1 read; work through it in Session 2 instead of (or alongside) the chapter's own hands-on prompt. Every lab is provider-neutral and fixture-first: nothing requires an API key or a paid model to pass, though each one names an optional real-model extension for when you want to go further.
-- **[Model to Product](aiml-model-to-product.md)** is the synthesis pass. It's one fictional company's support copilot, traced from Chapter 1's first rules-vs-learned decision all the way to Chapter 18's finished, defensible architecture — with every move justified by a failure, evidence, and a gate to proceed, the same way a real team would have to justify it to a skeptical lead. Read it *after* Chapter 18, once the whole book is behind you, so you can see the eighteen separate ideas as one continuous set of engineering decisions instead of eighteen separate topics.
+- **[Model to Product](aiml-model-to-product.md)** is the synthesis pass. It's one fictional company's support copilot, traced from Chapter 1's first rules-vs-learned decision all the way to Chapter 19's finished, defensible architecture — with every move justified by a failure, evidence, and a gate to proceed, the same way a real team would have to justify it to a skeptical lead. Read it *after* Chapter 19, once the whole book is behind you, so you can see the nineteen separate ideas as one continuous set of engineering decisions instead of nineteen separate topics.
 
 None of this replaces the appendix's **Build these** project list (Section D) — those are longer, standalone portfolio projects meant to prove your skills to an interviewer over days or weeks. The labs are shorter, scoped to one chapter each, and meant to be done *while* you're reading the book, not after it.
 
@@ -111,7 +114,8 @@ AI/ML rewards *building* over reading even more than DSA does. Each chapter is *
 - **After Ch8:** Can you explain, with no hand-waving, what an embedding is and why the Transformer architecture made modern LLMs possible?
 - **After Ch14:** Given "add an AI feature to our product," can you sketch the whole thing — prompt vs RAG vs fine-tune, the data flow, how you'd evaluate it, and the cost/latency tradeoffs?
 - **After Ch16:** Can you red-team that same feature — name its top attack (especially indirect injection through retrieval) and the defenses — *and* estimate its cost and the levers you'd pull to cut it?
-- **After Ch17:** Can you handle a mixed AI/ML interview — a fundamentals question *and* a "design an LLM-powered feature" question — talking clearly throughout?
+- **After Ch18:** Can you handle a mixed AI/ML interview — a fundamentals question *and* a "design an LLM-powered feature" question — and structure the design with DRESS?
+- **After Ch19:** Can you explain exactly which state reaches each model call, which facts become memory, how conflicts and deletion work, and how the workflow resumes after a crash without duplicating an action?
 
 If a checkpoint fails, **stop and redo** the prior chapters and build something with them. Don't proceed.
 

@@ -22,4 +22,6 @@ jobs:
           python-version: "3.12"
 
       - name: Validate chapters, links, and Python examples
-        run: python3 scripts/validate_content.py
+        run: |
+          python3 scripts/validate_content.py
+          python3 -m unittest discover -s scripts -p 'test_*.py'

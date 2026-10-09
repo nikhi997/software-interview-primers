@@ -1,10 +1,10 @@
 # Appendix: The AI/ML reference shelf
 
-*[← Chapter 18](aiml-chapter-18.md) · [Contents](aiml-README.md)*
+*[← Chapter 19](aiml-chapter-19.md) · [Contents](aiml-README.md)*
 
 Everything in one place for fast review. Use this after you've read the chapters — it's a memory aid, not a substitute for the explanations.
 
-Looking for something more active than a reference shelf? The [rebuild labs](aiml-rebuild-labs.md) turn each chapter into a runnable exercise, and [Model to Product](aiml-model-to-product.md) retells all 18 chapters as one continuous system build — read it once this appendix feels familiar.
+Looking for something more active than a reference shelf? The [rebuild labs](aiml-rebuild-labs.md) turn each chapter into a runnable exercise, and [Model to Product](aiml-model-to-product.md) retells all 19 chapters as one continuous system build — read it once this appendix feels familiar.
 
 ---
 
@@ -122,11 +122,31 @@ Looking for something more active than a reference shelf? The [rebuild labs](aim
 - **Prompt caching** — provider discount for reusing a static prompt prefix across calls.
 - **Routing / cascading** — send each request to the right-sized model; try cheap first, escalate hard cases to the expensive model.
 - **Right-sizing** — matching model size to task difficulty instead of using one big model for everything; the biggest cost lever.
-- **Cost-per-request** — (input + output tokens) × price-per-token; the number to estimate before optimizing.
+- **Cost-per-request** — input tokens × input rate + output tokens × output rate, plus any separately billed work; estimate before optimizing.
 - **LLMOps** — logging, monitoring, versioning, and maintaining LLM systems.
 - **MLOps** — operating models you *train and deploy*: data/training pipelines, versioning, serving, drift monitoring, retraining.
 - **AIOps** — a *different axis*: using AI/ML to run IT operations (anomaly detection, log analysis, incident automation); not about shipping an AI feature.
 - **MCP (Model Context Protocol)** — emerging standard for connecting models to tools/data.
+- **A2A (Agent-to-Agent) protocol** — an interoperability boundary for agents exchanging tasks and status; distinct from a model application's connection to tools.
+- **Workflow** — a code-owned sequence of states/transitions; models can perform steps without choosing the whole path.
+- **Bounded autonomy** — agent discretion constrained by explicit budgets for steps, time, cost, tools, and permissions.
+- **Durable execution** — persisting workflow state/checkpoints so work can resume safely after waits, crashes, or retries.
+- **Idempotency key** — stable logical-operation identifier the receiving service enforces to deduplicate retries; a local key alone does not prevent duplicate remote effects.
+- **Trace eval** — grading the path a system took (tool choice, arguments, order, authorization, retries), not only its final answer.
+- **Judge calibration** — comparing an LLM judge with rubric-anchored human ratings and inspecting disagreements before using it as a gate.
+
+**Context, memory & workflow reliability**
+- **Context engineering** — selecting, structuring, attributing, and budgeting the minimum authorized evidence a model needs for one decision.
+- **Context packet / manifest** — typed, versioned record of instructions, workflow state, retrieved evidence, tool results, provenance, and trust levels sent to a model call.
+- **Working memory** — temporary state assembled into the current context; it disappears unless the application persists it.
+- **Procedural memory** — reusable procedures or skills; distinct from the persisted status of a particular workflow.
+- **Episodic memory** — durable record of prior events, decisions, actions, and receipts.
+- **Semantic memory** — durable facts/preferences, stored with provenance, scope, freshness, and correction/deletion rules.
+- **Procedural state** — current workflow step, pending approvals, retries, deadlines, and allowed transitions.
+- **Compaction** — replacing older detail with a smaller derived summary; must preserve invariants and retain a path to source events.
+- **Invariant** — constraint or open commitment that compaction may not paraphrase away (approval, denial, correction, safety rule).
+- **Provenance** — where a context item came from, with source/version/time/scope so authority and freshness can be checked.
+- **Context recall / precision** — whether all required facts were included / whether included material was relevant.
 
 **Multimodal**
 - **Multimodal model** — a model that takes and/or produces more than one modality (text, image, audio, video).
@@ -143,13 +163,13 @@ Looking for something more active than a reference shelf? The [rebuild labs](aim
 
 | Role | Builds | Core skills | This book's core chapters |
 |---|---|---|---|
-| **AI / GenAI Engineer** | Apps on top of models (RAG, agents, LLM features) | Software eng + applied LLM (prompting, RAG, tools, evals, shipping) | Part 3 (9–14) + Part 1 concepts |
+| **AI / GenAI Engineer** | Apps on top of models (RAG, agents, LLM features) | Software eng + applied LLM (prompting, RAG, tools, evals, shipping, context/workflows) | Part 3 (9–17) + Ch 19 + Part 1 concepts |
 | **ML Engineer (MLE)** | Models trained & deployed to production | Software eng + ML depth + MLOps | Parts 1–2 + Ch 14 |
 | **Data Scientist** | Insight, experiments, classic models | Stats, A/B testing, analysis, communication | Parts 1, Ch 5 |
 | **MLOps / Platform** | Infra to train/deploy/monitor/scale | Software/infra, observability, LLMOps | Ch 13–14 |
 | **Research Scientist** | New models & methods | Deep math, usually PhD, publishing | Parts 1–2 deeply |
 
-**Fastest path for a working software engineer:** AI Engineer — lowest barrier, most open roles, and Part 3 is its curriculum. Read responsibilities, not titles; they vary by company.
+**Natural application-layer path for a working software engineer:** AI Engineer — it builds on software engineering while adding Part 3 and Chapter 19's context/workflow discipline. Read responsibilities, not titles; they vary by company.
 
 ---
 
@@ -161,9 +181,9 @@ Know the *category* each tool fills; specific products churn.
 - **Frameworks / orchestration:** LangChain, LlamaIndex (RAG and agent plumbing); use judiciously — they help and can also over-abstract.
 - **Vector databases:** Pinecone, Weaviate, Chroma, Qdrant, pgvector, FAISS.
 - **Classic ML:** scikit-learn (the classic toolbox), XGBoost / LightGBM (boosting), pandas/numpy (data).
-- **Deep learning:** PyTorch (dominant), TensorFlow; Hugging Face (models, datasets, the `transformers` library).
+- **Deep learning:** PyTorch, TensorFlow; Hugging Face (models, datasets, the `transformers` library).
 - **Evaluation / observability:** eval frameworks and LLM-tracing/observability tools (the space is young and shifting).
-- **Standards:** MCP for tool/data connectivity.
+- **Standards:** MCP for tool/data connectivity; A2A-style protocols for agent-to-agent task exchange. These solve interoperability, not authorization.
 
 > Don't memorize this list for an interview. Know what each *category* is for, and have used one or two yourself.
 
@@ -177,7 +197,8 @@ Hands-on projects beat any amount of reading, and they're what make a résumé c
 2. **A semantic search engine** — embed a set of documents, store the vectors, and answer queries by nearest-neighbor. Proves embeddings (Ch 7).
 3. **A RAG chatbot over your own docs** — the single most valuable project: chunk → embed → store → retrieve → grounded generation with citations. Proves Ch 11 and most of Part 3. *If you build one thing, build this.*
 4. **A small agent** — an LLM that uses 2–3 tools in a ReAct loop to complete a task, with step limits and guardrails. Proves Ch 12.
-5. **An eval harness** — add an eval set and LLM-as-judge to any of the above and measure a prompt change before/after. Proves Ch 13 — and very few candidates have this, so it stands out.
+5. **An eval harness** — add an eval set and calibrated LLM-as-judge to any of the above and measure a prompt change before/after. Proves Ch 13 and gives you a concrete reliability tradeoff to discuss.
+6. **A durable assistant workflow** — add typed context packets, scoped memory writes, checkpoint/resume, version-bound approvals, and an idempotent side effect. Inject a crash after every step and prove no action duplicates. Proves Ch 19.
 
 Ship them somewhere public (GitHub + a short write-up of the *decisions* and *tradeoffs*). The write-up matters as much as the code — it shows judgment.
 
@@ -205,6 +226,15 @@ Ship them somewhere public (GitHub + a short write-up of the *decisions* and *tr
 - What is a reasoning model / test-time compute, and when would you use one instead of a standard model?
 - MLOps vs LLMOps vs AIOps — how do they differ, and which one is *not* about operating the AI you built?
 - How does multimodal AI extend the embeddings idea? *(a shared image–text space turns cross-modal matching into nearest-neighbor search)*
+- Long context vs RAG vs a structured tool — how do you choose?
+- Workflow vs agent — when is model-chosen control flow worth the reliability cost?
+- MCP vs A2A — which boundary does each standardize, and what security work remains?
+- Context vs memory — why is resending a transcript not a durable memory design?
+- What belongs in a memory write policy? How do scope, provenance, expiry, correction, and deletion work?
+- Why do side-effecting tools need idempotency keys and durable receipts?
+- How do you evaluate an agent trace and calibrate an LLM judge?
+- Quantization vs distillation — what resource cost does each target, and how do you measure quality and escalation rate?
+- A real-time voice assistant acts on a partial transcript. What commit, cancellation, and approval rules would prevent a mistaken action?
 
 **ML / AI system design (use DRESS)**
 - Design a system to answer questions over our internal documents. *(RAG)*
@@ -217,6 +247,8 @@ Ship them somewhere public (GitHub + a short write-up of the *decisions* and *tr
 - Our LLM bill is 5× budget — how do you cut it without wrecking quality? *(estimate cost-per-request, right-size, route, cache, trim tokens)*
 - A teammate wants to use the smallest model everywhere to save money — what's your response?
 - Design an AI feature that picks the best thumbnail for a video (or auto-generates closed captions). *(multimodal: shared embeddings / VLM / ASR, plus the usual eval + cost discipline)*
+- Design a long-running assistant that survives a crash, waits for approval, remembers a corrected preference, and never sends the same message twice.
+- A conversation no longer fits in context. Design compaction that preserves active constraints and can retrieve raw history when needed.
 
 **Judgment & responsibility**
 - When would you choose *not* to use AI for a problem?
@@ -229,12 +261,13 @@ Ship them somewhere public (GitHub + a short write-up of the *decisions* and *tr
 
 ---
 
-## F. The five bumper stickers (the whole track, compressed)
+## F. The six bumper stickers (the whole track, compressed)
 
 1. **Ch 1:** ML learns a function from examples instead of you writing it — use it only when the rule is too messy to code, you have data, and you can tolerate being wrong.
 2. **Ch 5:** A single accuracy number hides which mistakes a model makes — pick the metric that matches what being wrong actually costs.
 3. **Ch 7:** Embeddings turn meaning into geometry: embed, then search — that one move powers semantic search, recommendations, and RAG.
 4. **Ch 9:** An LLM just predicts the next token — fluent but with no built-in truth, memory, or fresh knowledge; every technique manages those limits.
 5. **Ch 18:** DRESS every problem — Data, Rule-out, Estimate, Ship, Score — master durable concepts over churning tools, and the field becomes yours to build in.
+6. **Ch 19:** The model needs the smallest authorized packet of current evidence, not every token — store memory with a write policy and run actions in checkpointed, idempotent workflows.
 
 > The whole track in one line: **Machine learning is learning a function from data instead of writing it by hand — so the data, not the model, is the real lever. Feel the data before reaching for the model, and an LLM stops being magic and becomes a component you can engineer.**

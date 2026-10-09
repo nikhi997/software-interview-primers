@@ -1,8 +1,8 @@
 # Model to Product — Building a customer-support copilot, chapter by chapter
 
-*[← Chapter 18](aiml-chapter-18.md) · [Contents](aiml-README.md)*
+*[← Chapter 19](aiml-chapter-19.md) · [Contents](aiml-README.md)*
 
-This is a continuous product-design trace, not a chapter-by-chapter summary. One system — a customer-support copilot for a fictional cloud-storage company, **Kestrel** — gets built across all eighteen chapters, in the order you read them. Every section follows the same shape: a **failure** the previous version actually hit, the **evidence** that surfaced it, the **smallest move** that addresses it (never the fanciest one), the **gain and cost** that move bought, and the **gate** that has to pass before the next chapter's move is even justified. Diagrams are ASCII, and each one is the previous one plus exactly one change — the same discipline the [HLD visual deepdive](../HLD/hld-visual-deepdive.md) uses for architecture.
+This is a continuous product-design trace, not a chapter-by-chapter summary. One system — a customer-support copilot for a fictional cloud-storage company, **Kestrel** — gets built across all nineteen chapters, in the order you read them. Every section follows the same shape: a **failure** the previous version actually hit, the **evidence** that surfaced it, the **smallest move** that addresses it (never the fanciest one), the **gain and cost** that move bought, and the **gate** that has to pass before the next chapter's move is even justified. Diagrams are ASCII, and each one is the previous one plus exactly one change — the same discipline the [HLD visual deepdive](../HLD/hld-visual-deepdive.md) uses for architecture.
 
 Read this *after* you've finished the book. Nothing here is new material — every technique is linked back to the chapter that taught it. What's new is watching the moves compound into one system you could actually defend in an interview, including the moves we *didn't* make and why.
 
@@ -340,7 +340,7 @@ By now Kestrel's copilot is the sum of seventeen small, evidence-driven moves, n
 - **S — Ship it.** Clear component boundaries, streaming, retries/fallbacks, redacted observability, a 5% canary before full rollout, least-privilege tools with scoped reads and a human gate on anything irreversible, and injection tested against the system before an attacker did (Ch 12, 14, 15).
 - **S — Score it.** Four separate eval suites (retrieval, answer, safety, human-review), a cost-per-resolved-ticket north star, and multimodal features shipped as assist-only until their failure rates earned more trust (Ch 13, 16, 17).
 
-The full, final architecture — every box earned by a failure, nothing added because it looked good on a diagram:
+The architecture you would defend in the interview — every box earned by a failure, nothing added because it looked good on a diagram:
 
 ```
                      ┌───────────────────────────┐
@@ -373,11 +373,44 @@ customer ──▶ ticket ─▶ [classify: rule + boosting] │  ← routing, u
 
 If an interviewer pushes on any single box, you now have a rehearsed answer that isn't "because that's best practice" — it's "because of the specific failure in production that this box fixed, and here's what it cost us to fix it." That's the whole trace, and it's the same discipline the [Rebuild Labs](aiml-rebuild-labs.md) let you practice hands-on, one chapter at a time.
 
-Notice, too, what's *absent* from the final diagram. There's no in-house foundation model, because nothing in eighteen chapters ever produced evidence that Kestrel's data or budget justified training one from scratch — every escalation in capability (Ch 6, Ch 8, Ch 9) borrowed a pretrained model instead. There's no auto-executing refund path, because Ch 12 and Ch 15 never found a version of "let the model act" that didn't need a human gate somewhere. And there's no single "AI quality score," because Ch 13 showed that one number is exactly where a real regression hides. A defensible system is as much about the components you can name a reason for *not* building as the ones you shipped.
+Notice, too, what's *absent* from the diagram. There's no in-house foundation model, because nothing in the build ever produced evidence that Kestrel's data or budget justified training one from scratch — every escalation in capability (Ch 6, Ch 8, Ch 9) borrowed a pretrained model instead. There's no auto-executing refund path, because Ch 12 and Ch 15 never found a version of "let the model act" that didn't need a human gate somewhere. And there's no single "AI quality score," because Ch 13 showed that one number is exactly where a real regression hides. A defensible system is as much about the components you can name a reason for *not* building as the ones you shipped.
+
+---
+
+## Chapter 19 — Context packets, governed memory, and a crash-safe workflow
+
+**Failure:** the diagram survives a five-minute interview, but the live system does not survive a three-day ticket. A business customer names a migration "Orchid" and legal adds "do not contact the customer until approval." The thread grows, so the drafting service compresses it; the summary drops the legal constraint. A stale knowledge-base note says direct contact is allowed. Then the email provider accepts a message but the response times out, and the workflow retries — sending it twice.
+
+**Evidence:** every individual component passed its local check. The failure sits between them: [Chapter 19](aiml-chapter-19.md)'s distinction between context and memory. Kestrel had an append-only transcript, a lossy summary, and in-memory orchestration — no typed context manifest, no authority/freshness policy, no invariant-preserving compaction, and no durable receipt showing the first email had already happened.
+
+**Smallest move:** wrap the existing components in a durable, code-owned workflow: `drafting → awaiting_approval → approved → sending → sent`. Persist the workflow version, exact approved payload, context source IDs/versions, and tool receipts after each transition. Build every model call from a **context packet** that separates hard constraints, current workflow state, scoped memory, retrieved policy, tool results, and untrusted attachment text. Store only verified or explicitly-approved memory; keep "no contact before legal approval" as a verbatim invariant through compaction. For this fixture, the email provider atomically deduplicates a stable idempotency key per logical workflow action and rejects a changed payload under that key. A retry returns the original receipt rather than sending again; an unresolved timeout with a provider lacking that contract must pause for reconciliation.
+
+**Rejected alternative:** buy a model with a larger context window and keep resending the whole thread. Rejected because capacity would not decide which policy version is authoritative, prevent cross-tenant memory retrieval, preserve an approval across compaction, or make a network side effect idempotent. It would make the same ambiguity larger and more expensive.
+
+**Gain / cost:** the team injects a crash after every state transition, including immediately after the email provider accepts the message. Each run resumes from the last committed checkpoint, keeps the legal invariant, chooses the current approved policy, and produces exactly one email receipt. The cost is explicit state design: memory schemas and retention, context manifests, workflow migrations, and recovery tests now need owners just like the prompt and eval suites do.
+
+**Gate to finish:** for any model call, can an operator list which facts were included, their authority/version/scope, and which candidates were rejected? After a crash at any line, can the job resume without skipping approval or repeating a side effect? Can a user correction or deletion propagate through memory, retrieval indexes, caches, and future context packets? If any answer is no, the system still depends on accidental transcript behavior rather than engineered state.
+
+The final addition surrounds the existing intelligence rather than replacing it:
+
+```text
+                  [ durable workflow state + scoped memory ]
+                              │ checkpoint / resume
+                              ▼
+ticket ──▶ [ context builder: authorize, resolve, budget, attribute ]
+                              │ typed context packet
+                              ▼
+          [ classify → retrieve → draft → approval → scoped tools ]
+                              │
+                              ▼
+               [ receipts + trace/context evals ]
+```
+
+That last move is easy to miss because it does not improve a one-turn demo. It improves the thing a real product must do: remain coherent across time, disagreement, waiting, failure, and retry.
 
 ## The bumper sticker
 
-> *Kestrel's copilot isn't one architecture diagram — it's eighteen small, defensible decisions, each one a failure you can name, evidence you actually looked at, the smallest fix that addressed it, and a cost you paid on purpose. Feel the data before reaching for the model, at every single step, and the whole system stays something you can explain instead of something you inherited.*
+> *Kestrel's copilot isn't one architecture diagram — it's nineteen small, defensible decisions, each one a failure you can name, evidence you actually looked at, the smallest fix that addressed it, and a cost you paid on purpose. Feel the data before reaching for the model, then engineer the state around it, and the whole system stays something you can explain instead of something you inherited.*
 
 ---
 

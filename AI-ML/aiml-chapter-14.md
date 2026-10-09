@@ -59,6 +59,12 @@ The model is non-deterministic (Chapter 9) and the API is a third-party dependen
 > - **Idempotency for actions:** if an agent (Ch 12) might retry, make sure it doesn't send the email twice.
 > "It worked every time I tried it" is not reliability; designing for the times it *won't* is.
 
+> 💡 **Concept notes — provider fallback without semantic roulette**
+> A fallback provider is not a drop-in retry unless it supports the behavior your application depends on. Models differ in tool schemas, structured-output guarantees, tokenization, safety behavior, and supported context. Put them behind a versioned adapter, normalize errors and responses, and maintain a **capability matrix** for each route. Fail over only to a model that passes the same contract and eval slice; otherwise degrade to a human-safe response. Avoid retrying across several providers blindly — that can multiply latency, cost, and side effects.
+
+> 💡 **Concept notes — version, canary, and rollback the whole AI configuration**
+> Treat the deployed unit as a bundle: model/provider version, prompt version, tool schemas, retrieval/index version, guardrails, and routing policy. Pin versions where the provider permits it, run offline evals before a change, then canary a small traffic slice while comparing quality, latency, cost, and safety. Keep the prior bundle deployable so rollback is one configuration change, not an emergency rewrite. If a provider retires a model, migrate deliberately through the same eval-and-canary gate; "latest" is not a release strategy.
+
 > 💡 **Concept notes — an LLM call is just another downstream dependency**
 > Here's the reframe that turns all of the above from "new AI problems" into "problems you already know how to solve": an LLM API is, architecturally, **just another downstream dependency** — one that happens to be slow, costly, non-deterministic, and occasionally down. Every reflex you built in the HLD track applies directly. It's slow → **cache** repeated or similar calls (above; HLD Ch 5) and push non-urgent work onto a **queue** to process asynchronously (HLD Ch 6). It's rate-limited and can spike → apply **rate limiting and backpressure** (HLD Ch 8). It can hang or fail → **timeouts, retries with backoff, and fallbacks** (a cheaper model, a cached answer, a graceful "try again"). It can stall and drag your app down with it → **isolate** it so its latency doesn't cascade. This is why most "AI products" are really ordinary systems with one unusual dependency wired in: **the LLM is a component inside your architecture, not the architecture.** Treat it like any other flaky third-party service and your system-design instincts carry over wholesale.
 
@@ -69,7 +75,7 @@ The model is non-deterministic (Chapter 9) and the API is a third-party dependen
 Like any ML system, an LLM feature needs ongoing care — the operational layer often called **LLMOps**.
 
 > 💡 **Concept notes — LLMOps / running it over time**
-> - **Logging & observability:** record prompts, responses, latencies, costs, and tool calls so you can debug, audit, and find failures. You can't fix what you can't see.
+> - **Logging & observability:** record prompt/model versions, source IDs, latencies, costs, validation outcomes, and redacted tool metadata so you can debug and audit. Sample raw content only where justified, with access controls and retention limits; logs must not become an unrestricted second copy of user data.
 > - **Monitoring quality in production:** watch the eval metrics and user signals (Ch 13) over time; quality can **drift** as usage patterns change or as you swap models.
 > - **Versioning:** prompts, models, and retrieval data all change — version them so you can reproduce behavior and roll back a bad change.
 > - **Continuous evaluation:** re-run your eval set (Ch 13) on every prompt/model change, and feed real production failures back into it.
@@ -95,6 +101,8 @@ Like any ML system, an LLM feature needs ongoing care — the operational layer 
 6. Name three things you'd log and monitor for a live LLM feature, and what each one helps you catch.
 7. A teammate says the LLM API is "a whole new kind of dependency." Push back: name four HLD reflexes (from caching to fallbacks) that apply to it unchanged.
 8. Distinguish MLOps, LLMOps, and AIOps in one sentence each. Which one is *not* about operating the AI you built?
+9. Your primary provider fails. What must be true before traffic can safely move to a fallback model, and when should the system degrade to a human instead?
+10. Why must a rollback restore the prompt, model, tool schemas, and retrieval version as one tested bundle rather than changing only the model name?
 
 
 ---

@@ -40,7 +40,7 @@ Audio becomes computable the same way — turn the waveform into a sequence you 
 Generation flips the arrow — a prompt in, a brand-new image or clip out.
 
 > 💡 **Concept notes — diffusion (generating images)**
-> The dominant technique for image and video generation is **diffusion**: the model learns to start from pure noise and repeatedly *denoise* it, step by step, toward an image that matches your prompt. It's a different mechanism from next-token prediction, but the mental model is familiar — a model that learned patterns from enormous amounts of data and now produces plausible *new* samples. Uses range from marketing art and **thumbnail** generation to synthetic training data. The usual cautions apply, amplified: cost and latency are higher, output is non-deterministic, and there are real **safety and rights** issues — deepfakes, training-data provenance, likeness and copyright — that you treat as first-class concerns, not afterthoughts.
+> A widely used technique for image and video generation is **diffusion**: the model learns to start from pure noise and repeatedly *denoise* it, step by step, toward an image that matches your prompt. It's a different mechanism from next-token prediction, but the mental model is familiar — a model that learned patterns from enormous amounts of data and now produces plausible *new* samples. Uses range from marketing art and **thumbnail** generation to synthetic training data. The usual cautions apply, amplified: cost and latency are higher, output is non-deterministic, and there are real **safety and rights** issues — deepfakes, training-data provenance, likeness and copyright — that you treat as first-class concerns, not afterthoughts.
 
 ---
 
@@ -56,6 +56,22 @@ The reassuring part: shipping a multimodal feature leans on every instinct from 
 
 ---
 
+## Real-time multimodal: the clock becomes part of correctness
+
+Batch transcription can wait for a whole file. A live voice or video assistant cannot: audio frames keep arriving while the model is reasoning, the user may interrupt, and an answer that arrives after the conversation moved on is wrong even if its words are perfect.
+
+You can use a **native multimodal model** that accepts audio/video directly, or an explicit pipeline such as ASR → text model → TTS. Native input can retain cues a transcript loses; a separate pipeline offers inspectable intermediate results and independent components. Neither architecture removes the need to evaluate turn-taking, timing, privacy, and action safety.
+
+> 💡 **Concept notes — streaming, turn-taking, and synchronization**
+> A real-time pipeline usually performs streaming input → incremental ASR/vision features → model reasoning → streaming output. Track **time to first useful output** and end-to-end turn latency, not just total processing time. Support **barge-in**: when the user starts speaking, cancel or pause stale generation rather than talking over them. Keep timestamps and provenance so a statement can be tied to the audio span or video frame that caused it; late or out-of-order frames must not update the wrong turn.
+
+> 💡 **Concept notes — partial evidence is unstable**
+> Streaming ASR revises earlier words as more audio arrives; a frame can be blurry until the next one; silence detection can end a turn too early. Separate **provisional** state from **committed** state. Do not trigger a side effect from a partial transcript. Buffer enough context to make the decision reliable, define a commit condition, and keep a human approval gate for high-impact actions. Handle disconnects, jitter, and backpressure explicitly, and disclose/obtain consent appropriate to recording and retention.
+
+Evaluation now needs scripted conversations with overlap, interruptions, noise, accents, delayed frames, and reconnects. Score transcript/vision quality, turn detection, cancellation correctness, latency percentiles, and whether any action used provisional evidence.
+
+---
+
 ## Try it
 
 1. Your team wants to auto-pick the best **thumbnail** for each episode from a set of candidate frames. Sketch how a shared image–text embedding space (CLIP-style) turns this into a search problem.
@@ -64,6 +80,7 @@ The reassuring part: shipping a multimodal feature leans on every instinct from 
 4. Explain diffusion in one or two sentences to a non-technical PM. Why is "start from noise and denoise" a reasonable way to make an image?
 5. Why are multimodal calls usually more expensive and slower than text-only ones, and which Chapter 14 techniques still apply?
 6. You're asked, "How would you evaluate an AI thumbnail-selection feature?" Answer it using the eval discipline from Chapter 13 — what's your test set, and what's your judge?
+7. A voice assistant starts answering, but the user interrupts to correct an account number. What must the runtime cancel, what state is provisional, and what evidence can be committed?
 
 
 ---
@@ -72,7 +89,7 @@ The reassuring part: shipping a multimodal feature leans on every instinct from 
 
 > *Multimodal AI isn't a new field to learn — it's the ideas you already have, generalized: everything (a pixel patch, an audio frame, a word) becomes a vector, attention chews on those vectors regardless of where they came from, and the same grounding, cost, and evaluation discipline still decides whether it works. A picture, a sound, and a sentence are all just vectors; the machinery didn't change, only the shape of what you feed it.*
 
-Next: everything comes together — the AI/ML interview ritual, the roles map, and how to stay future-proof in a field that reinvents itself yearly.
+Next: everything comes together — first the AI/ML interview ritual, then the context and workflow discipline that keeps a long-running AI system coherent.
 
 ---
 
