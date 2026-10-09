@@ -24,13 +24,19 @@ There's a ladder of techniques, from cheap-and-narrow to expensive-and-rich. Goo
 > 💡 **Concept notes — the evaluation toolkit**
 > - **A test/eval set:** a curated collection of representative inputs with known-good expected outputs (or acceptance criteria). This is the foundation — your prompt "unit tests" from Chapter 10, grown up. Run it after *every* change to catch **regressions**.
 > - **Code-based / rule checks:** cheap, deterministic checks for objective properties — is it valid JSON? Right length? Contains required fields? No banned words? Use these wherever the criterion is mechanical.
-> - **LLM-as-judge:** use a (often stronger) LLM to *grade* your system's outputs against a rubric — "Does this answer correctly address the question using only the provided context? Score 1–5." Scales far better than human review and correlates surprisingly well, though it has biases (e.g., favoring longer answers) and isn't infallible. A workhorse of modern LLM evaluation.
+> - **LLM-as-judge:** use an LLM to *grade* your system's outputs against a rubric — "Does this answer correctly address the question using only the provided context? Score 1–5." This can scale review, but agreement with human judgment must be measured on your task; bias and disagreement can hide behind a precise-looking score.
 > - **Human evaluation:** people rate outputs. The gold standard for nuanced quality, but slow and expensive — so you reserve it for a sample and for calibrating your automated judges.
 > - **Production monitoring & user signals:** thumbs up/down, did the user retry or rephrase, did they escalate to a human? Real usage surfaces failures your test set missed — feed those back into the eval set.
 > The pattern: **automate what you can (rules + LLM-judge), sample with humans, and monitor production** — then loop the failures back in.
 
+> 💡 **Concept notes — calibrating an LLM judge**
+> A judge is another model, not an answer key. Before trusting its score, define a concrete rubric with anchored examples, have multiple humans independently score a representative sample, and compare the judge to those ratings. Inspect disagreements by slice — long answers, particular languages, safety cases, or outputs from the same model family as the judge. Recalibrate when the rubric, judge model, or task changes, and keep some human-rated cases hidden as a regression set. Where the criterion is objective, prefer code; where it is nuanced, report judge uncertainty and continue human sampling.
+
 > 💡 **Concept notes — task-specific metrics**
 > Tie metrics to the job: for **RAG** (Ch 11), measure *retrieval* quality (did we fetch the right chunks?) **separately** from *answer* quality (faithfulness to the retrieved context, aka "is it grounded or did it stray?") — because, as Chapter 11 warned, most RAG failures are retrieval failures, and lumping them together hides where the problem is. For **classification/extraction** tasks, the Chapter 5 metrics (precision/recall) apply. For **agents** (Ch 12), measure task completion rate and steps taken. Match the measurement to what the system is supposed to do.
+
+> 💡 **Concept notes — evaluate the trace, not only the final sentence**
+> A tool-using system can produce a correct final answer through a dangerous path — reading another tenant's record, retrying a charge, or taking ten unnecessary steps. Capture a structured **trace** of model decisions, tool names, sanitized arguments, results, state transitions, approvals, retries, latency, and cost. Then score both levels: **outcome evals** ask whether the task finished correctly; **trace evals** ask whether the path used allowed tools, respected order and scope, avoided duplicate side effects, stayed within budgets, and cited the evidence that justified the action. Keep policy checks deterministic where possible; use a calibrated judge for genuinely semantic choices. Chapter 19 uses the same traces to test memory and context selection.
 
 ---
 
@@ -58,7 +64,7 @@ Beyond "is it correct," a shipped LLM system has safety obligations. The big one
 > Guardrails wrap the model in a layer you *do* control around a component you *don't* fully control.
 
 > 💡 **Concept notes — bias, privacy, and responsible use**
-> LLMs learned from human text and carry its **biases** (Chapter 2's "the model mirrors its data," at internet scale) — test for unfair behavior across groups. Respect **privacy**: don't send sensitive user data to third-party APIs without care, and be mindful of what's logged. Be transparent that users are talking to AI. These responsible-AI concerns are increasingly part of both the job and the interview; showing you think about *harm*, not just *accuracy*, is a maturity signal.
+> LLMs learned from human text and carry its **biases** (Chapter 2's "the model mirrors its data," at internet scale) — test for unfair behavior across groups. Respect **privacy**: don't send sensitive user data to third-party APIs without care, and be mindful of what's logged. Be transparent that users are talking to AI. Responsible-AI concerns belong in both product design and interview answers; showing you think about *harm*, not just *accuracy*, is a maturity signal.
 
 ---
 
@@ -82,6 +88,8 @@ One piece remains before the interview chapter: actually *shipping* this — lat
 4. Describe the eval-first development loop. Why is changing a prompt *without* an eval set risky?
 5. Distinguish input guardrails from output guardrails, and give one concrete example of each.
 6. You can't eliminate hallucination. List three things you'd do to manage it in a production assistant.
+7. Your agent reaches the right answer after reading an unauthorized record and retrying a payment. Why does an outcome-only eval pass incorrectly, and which trace checks catch it?
+8. How would you calibrate an LLM judge before using it as a release gate? Name the human-rated evidence and one bias slice you would inspect.
 
 
 ---

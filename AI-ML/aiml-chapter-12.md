@@ -31,6 +31,34 @@ Call a tool once and you have a *tool-using* model. Let the model **loop** — d
 
 ---
 
+## Workflow first; agent only where judgment earns its risk
+
+Teams often call any multi-step LLM system an "agent." That hides the most important design choice: **who chooses the next step?**
+
+> 💡 **Concept notes — workflow vs agent**
+> A **workflow** has a path your code owns: classify → retrieve → draft → validate → request approval. The model may perform a step, but transitions, retries, and allowed actions are explicit. An **agent** lets the model choose the next action and repeat until it believes the goal is complete. Workflows are easier to test, resume, audit, and bound; agents are useful when the path genuinely cannot be enumerated cheaply.
+>
+> Start with the workflow. Add **bounded autonomy** only inside the uncertain part: a research step may choose among three read-only tools for at most five turns, while authorization, spending limits, completion criteria, and final side effects remain deterministic. Autonomy is a budget — steps, time, money, permissions — not an on/off label.
+
+This distinction also catches a common overbuild: if the business process already has five known stages, replacing the stage machine with a free-running planner removes reliability without adding useful capability.
+
+Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) explains this workflow/agent distinction through simple composition patterns (reviewed 2026-10-09). The useful lesson is the control-flow boundary, not adopting that vendor's tooling.
+
+---
+
+## Durable execution: the loop must survive real systems
+
+An in-memory demo forgets everything when the process crashes. A production workflow may wait minutes for a provider, hours for approval, or days for a user reply. It needs durable state outside the model.
+
+> 💡 **Concept notes — checkpoints, idempotency, and receipts**
+> Persist the workflow's current state, inputs, tool results, approval decision, and a stable operation ID after every meaningful step. On retry, **resume from the checkpoint** instead of replaying the whole conversation. Make side-effecting tools **idempotent**: the receiving service must enforce that the same operation ID and payload submitted twice return the original result rather than charging twice or sending two emails. Record a receipt for each action; after a timeout, reconcile the operation's status rather than infer that it failed. If the service lacks deduplication or a reliable status lookup, pause for reconciliation — a local key alone cannot make the remote action safe to repeat.
+>
+> Put **approval gates** in code, not prose. The model can propose a refund, but only a separate authorized transition can execute it. Approvals expire, bind to the exact arguments reviewed, and are invalidated if those arguments change.
+
+Durability does not make the model smarter. It makes the surrounding process recoverable, which is more valuable when a non-deterministic component sits inside it.
+
+---
+
 ## The safety problem: capability cuts both ways
 
 A model that can *only talk* can at worst say something wrong. A model that can *act* can delete data, spend money, send messages, or leak information. The instant you grant tools, security and safety stop being optional.
@@ -41,18 +69,20 @@ A model that can *only talk* can at worst say something wrong. A model that can 
 > - **Human-in-the-loop for risky actions:** require explicit human confirmation before anything destructive, costly, or irreversible (sending money, emailing customers, deleting data). The model proposes; a human approves.
 > - **Validate the model's requests:** never pass model-generated arguments straight into a sensitive call. Check and sanitize them — the model could be wrong, or hijacked.
 > - **Prompt injection becomes critical here (Chapter 10):** if an agent reads external content (a web page, an email, a document) and that content contains hidden instructions, the agent might *act* on them — exfiltrate data, misuse a tool. This is the scariest LLM-security scenario precisely *because* the model can act. Untrusted content + action capability = treat with extreme caution.
-> - **Sandbox and limit:** cap steps, set spending/rate limits, run code tools in isolated environments, log everything for audit.
+> - **Sandbox and limit:** cap steps, set spending/rate limits, run code tools in isolated environments, and record scoped, redacted audit metadata under a retention policy.
 > The mantra: **the more a system can do, the more it can do wrong — so constrain capability to the task and put a human between the model and anything irreversible.**
 
 ---
 
-## A note on "MCP" and the tool ecosystem
+## Protocol boundaries: MCP is not A2A, and neither is a trust boundary
 
-> 💡 **Concept notes — standardizing tools (fast-moving)**
-> A practical pain point is that every app wired tools to models in its own ad-hoc way. Emerging standards (such as the **Model Context Protocol, MCP**) aim to give models a uniform way to discover and call external tools and data sources, so a tool built once works across many apps. The *specific* standards here are fast-moving — don't over-index on names — but the *direction* is durable: tools and data sources are becoming pluggable, standardized components that models connect to. Knowing the concept (a common interface between models and the outside world) matters more than any one protocol's current details.
+> 💡 **Concept notes — tool protocol vs agent protocol (fast-moving)**
+> **MCP** standardizes how an AI application connects to tools, resources, and prompt templates exposed by a server. The **Agent-to-Agent (A2A) protocol** addresses a different boundary: agents discovering one another, exchanging tasks/messages, and reporting status. A weather tool is an MCP-shaped capability; delegating a research task to another independently-operated agent is an A2A-shaped interaction. These conceptual boundaries were checked against the [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) and [A2A core concepts](https://a2a-protocol.org/latest/topics/key-concepts/) on 2026-10-09. The specifications evolve; check their current versions before implementing wire details.
+>
+> Neither protocol grants trust. Your host still authenticates the peer, authorizes every capability, validates schemas, applies tenant scope, limits data returned, and records audit events. **Interoperability tells components how to talk; your application decides what they are allowed to do.**
 
 > 💡 **Concept notes — where agents are heading (fast-moving)**
-> Agentic systems are the field's most active frontier, and the trajectory is worth knowing even as specifics churn. Two directions dominate. **Multi-agent systems:** instead of one agent doing everything, several specialized agents collaborate — a "planner" delegates to "worker" agents, or agents critique each other's output — which can help on complex tasks but multiplies the cost, latency, and failure modes of a single agent. **Agentic RAG:** the retrieval step (Chapter 11) itself becomes agentic — the model decides *what* to search for, reformulates queries, and retrieves in a loop rather than once. The durable takeaway underneath the hype: more autonomy means more capability *and* more ways to fail, so the guardrails above matter *more* as agents grow more capable, not less. "Promising and improving fast, but I'd add autonomy only where the reliability controls keep up" stays the mature stance.
+> Two designs are useful to recognize without assuming either is an upgrade. **Multi-agent systems:** instead of one agent doing everything, several specialized agents collaborate — a "planner" delegates to "worker" agents, or agents critique each other's output — which may help on separable tasks but adds cost, latency, and coordination failure modes. **Agentic RAG:** the retrieval step (Chapter 11) itself becomes agentic — the model decides *what* to search for, reformulates queries, and retrieves in a loop rather than once. The durable takeaway: more autonomy gives the system more choices and more ways to fail. Compare either design with a single workflow on your task's evals before adopting it.
 
 ---
 
@@ -64,6 +94,9 @@ A model that can *only talk* can at worst say something wrong. A model that can 
 4. You're building an agent that can query *and modify* a production database. List three guardrails you'd insist on before launch.
 5. Explain why prompt injection is more dangerous for an agent that browses the web than for a plain chatbot.
 6. Give two of the LLM's built-in limits (from Chapter 9) and the tool you'd add to overcome each.
+7. A five-stage business process has known transitions but one ambiguous research step. Which part should be a workflow, which part might be agentic, and what budgets bound it?
+8. Why must a retried `send_email` tool accept an idempotency key? What receipt would you persist before moving to the next step?
+9. Distinguish MCP from A2A. Why does adopting either protocol leave authorization as your responsibility?
 
 
 ---
